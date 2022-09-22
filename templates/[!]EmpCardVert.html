@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Card</title>
+</head>
+<center>
+	<font color="black" size="5" style="font-family: avenir">
+
+<h1 style="text-align:center"><font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span style="font-family: avenir;">Employee Card</span></strong></span></span></font></h1>
+
+<hr /><font color="black"><font size="5"><font style="font-family:avenir">Employee ID:</font></font></font>&nbsp;<input autofocus="" name="emp_id" size="40" style="width:100px;height:30px;font-size:14pt;" type="text" /><strong><button formaction="" style="background: grey; height: 40px; width: 100px; color:white; font:oblique;" type="submit">SEARCH</button></strong>
+
+<hr />
+<table border="1" cellpadding="1" cellspacing="1" style="width: 50%;">
+	<tbody>
+		<tr>
+			<td style="width: 45%;">
+			<p style="text-align: center;">{{ image_url }}</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 45%;">
+			<p style="text-align: center;"><span style="color:#3498db;"><strong>{{ fname }}&nbsp;{{ lname }}</strong></span><br />
+			<em>{{ position }}</em></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 298px; text-align: center;">
+			<p>ID: {{ id }}<br />
+			Phone: {{ phone }}<br />
+			Email: {{ email }}</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 298px; text-align: center;">
+			<p><span style="font-size:20px;"><strong><span style="color:#3498db;">Join&nbsp;</span>: {{ jdate }}<br />
+			<span style="color:#3498db;">Expire&nbsp;</span>: {{ xdate }}</strong>&nbsp;</span></p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>
+    <font color="black" size="5" style="font-family: avenir">
+        <button formaction="" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">HORIZONTAL VIEW</button>&nbsp;
+        <button formaction="" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">RESET</button>&nbsp;
+    </font>
+</p>
+
+<p><font color="black" size="5" style="font-family: avenir">&nbsp;</font></p>
+
+	</font>
+</center>
+</html>
