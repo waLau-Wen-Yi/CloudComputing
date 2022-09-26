@@ -81,7 +81,7 @@ def AddEmp():
 
 #@@@@@@@@@@Attendance
 @app.route("/attd", methods=['POST'])
-def ViewAttd():
+def attd():
     return render_template('Attendance.html')
 
 @app.route("/viewattd", methods=['POST'])
