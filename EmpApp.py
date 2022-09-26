@@ -84,6 +84,10 @@ def AddEmp():
 def ViewAttd():
     return render_template('Attendance.html')
 
+@app.route("/viewattd", methods=['POST'])
+def ViewAttd():
+    return render_template('ViewAttendanceLog.html')
+
 #@@@@@@@@@@Payroll
 
 #@@@@@@@@@@Performance Tracker
