@@ -304,8 +304,6 @@ def addCheckIn():
                     cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
                     db_conn.commit()
                     isExist = 4
-
-                    return in_time
                 elif(in_time > out_time):  #else tell them that they have checked in
                     #display message box
                     isExist = 1
@@ -320,7 +318,7 @@ def addCheckIn():
         return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
 
 @app.route("/addcheckout", methods=['GET'])
-def addCheckOutn():
+def addCheckOut():
     cursor = db_conn.cursor()
     name = ""
     isExist = 0
@@ -333,11 +331,11 @@ def addCheckOutn():
     attd_status = ""
     
 
-    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = AND in_time = "
+    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = MAX(check_in)"
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time) FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
+        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
         value = cursor.fetchone()
         name = value[0]
         print(name)
@@ -352,28 +350,32 @@ def addCheckOutn():
         if(out_time != None):
             out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
+        date = value[3]
+        if(date != None):
+            match = re.search(r'\d{4}-\d{2}-\d{2}', date)
+            date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+
         #check whether the emp id exists
         if(name != ""):
             #check whether the last time it is check in or checkout
-            if(in_time == "" or in_time == None):
-                in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+            if(out_time == "" or out_time == None):
+                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
-                cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
+                cursor.execute(insert_sql, (out_time, emp_id))
                 db_conn.commit()
-                isExist = 4
+                isExist = 14
                 #insert data
-            elif(in_time != None):
-                if(in_time < out_time): #if checkout then can check in
+            elif(out_time != None):
+                if(out_time < in_time): #if checkin then can check out
                     #insert data
-                    in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                    cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
+                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                    cursor.execute(insert_sql, (out_time, emp_id))
                     db_conn.commit()
-                    isExist = 4
+                    isExist = 14
 
-                    return in_time
-                elif(in_time > out_time):  #else tell them that they have checked in
+                elif(out_time > in_time):  #else tell them that they have checked out
                     #display message box
-                    isExist = 1
+                    isExist = 11
                 else:
                     #display message box
                     isExist = 2
