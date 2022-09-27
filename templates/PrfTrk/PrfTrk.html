@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<title>Performance Tracker</title>
+<center>
+    <h1 style="text-align:center">
+        <font color="black" size="5" style="font-family: avenir">
+            <font color="black" size="5" style="font-family: avenir">
+                <font color="black" size="5" style="font-family: avenir">
+                    <font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span
+                                style="font-size:26px;"><strong><span style="font-family: avenir;">Performance
+                                        Tracker</span></strong></span></span></font>
+                </font>
+            </font>
+        </font>
+    </h1>
+
+    <hr />
+    <form action="/edtempdtl" id="emp_id_form" method="get">
+        <p>Employee ID: &nbsp; <input autofocus="" name="emp_id" size="40"
+                style="width:100px;height:30px;font-size:14pt;" type="text" /> <strong><button formaction=""
+                    style="background: grey; height: 40px; width: 100px; color:white; font:oblique;"
+                    type="submit">SEARCH</button> </strong></p>
+    </form>
+
+    <hr />&nbsp;
+    <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+        <tbody>
+            <tr>
+                <td colspan="2" style="text-align:center; width:100%">{{ imgurl }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span
+                        style="color:black; font-family:avenir; font-size:x-large">ID : </span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ id
+                                }}</strong> </span> </span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span
+                        style="color:black; font-family:avenir; font-size:x-large">Name :</span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ fname }} {{
+                                lname }}</strong> </span> </span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span
+                        style="color:black; font-family:avenir; font-size:x-large">Position : </span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ position
+                                }}</strong> </span> </span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span
+                        style="color:black; font-family:avenir; font-size:x-large">Join Date :</span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ jdate
+                                }}</strong> </span> </span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span style="color:black"><span style="font-size:x-large">Goal
+                            :</span></span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ goal
+                                }}</strong></span></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span style="color:black"><span
+                            style="font-size:x-large">Objective :</span></span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ objective
+                                }}</strong></span></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span style="color:black"><span style="font-size:x-large">Grade
+                            :</span></span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ grade
+                                }}</strong></span></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span style="color:black"><span style="font-size:x-large">Pros
+                            :</span></span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ pros
+                                }}</strong></span></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right; width:30%"><span style="color:black"><span style="font-size:x-large">Cons
+                            :</span></span></td>
+                <td style="width:70%"><span style="color:black"><span style="font-size:x-large"><strong>{{ cons
+                                }}</strong></span></span></td>
+            </tr>
+        </tbody>
+    </table>
+</center>
+
+<center>
+    <p>
+    <form action="/prftrkedt" method="get">
+        <input name="emp_id" size="40" value="{{ id }}" style="width:100px;height:30px;font-size:14pt;"
+            type="hidden" />
+        <button style="background:grey; height:45px; width:200px; color:white; font:oblique" type="submit">EDIT</button>
+    </form>
+    </p>
+
+    <form action="/" method="post">
+        <font color="black" size="5" style="font-family: avenir">
+            <button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">MAIN
+                MENU</button>
+        </font>
+    </form>
+</center>
+
+</html>
