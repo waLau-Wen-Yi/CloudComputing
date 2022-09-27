@@ -116,6 +116,8 @@ def GetEmpName():
     emp_id = 0
     name_arr = []
     cursor = db_conn.cursor()
+    name = ""
+
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         cursor.execute("SELECT fname, lname FROM employee WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
@@ -128,6 +130,7 @@ def GetEmpName():
         name = name_arr[0]
     else:
         name = ""
+    print(name)
     return render_template('TakeAttendance.html', emp_id=emp_id) 
 
 #@@@@@@@@@@Payroll
