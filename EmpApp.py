@@ -336,7 +336,7 @@ def addCheckOut():
     dates = ""
     
 
-    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s HAVING in_time = MAX(in_time)"
+    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s GROUP BY out_time, emp_id HAVING in_time = MAX(in_time) "
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
