@@ -168,28 +168,28 @@ def addCheckIn():
         #check whether the emp id exists
         if(name != ""):
             #check whether the last time it is check in or checkout
-            if(in_time == ""):
+            if(in_time == "" or in_time == None):
                 in_time = datetime.datetime.now.strftime("%I:%M:%S %p")
                 print(in_time)
                 cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
                 db_conn.commit()
                 isExist = 4
                 #insert data
+            elif(in_time != None):
+                if(in_time < out_time): #if checkout then can check in
+                    #insert data
+                    in_time = datetime.datetime.now.strftime("%I:%M:%S %p")
+                    cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
+                    db_conn.commit()
+                    isExist = 4
 
-            if(in_time < out_time): #if checkout then can check in
-                #insert data
-                in_time = datetime.datetime.now.strftime("%I:%M:%S %p")
-                cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
-                db_conn.commit()
-                isExist = 4
-
-                return in_time
-            elif(in_time > out_time):  #else tell them that they have checked in
-                #display message box
-                isExist = 1
-            else:
-                #display message box
-                isExist = 2
+                    return in_time
+                elif(in_time > out_time):  #else tell them that they have checked in
+                    #display message box
+                    isExist = 1
+                else:
+                    #display message box
+                    isExist = 2
                 
         else:
             #display message box
