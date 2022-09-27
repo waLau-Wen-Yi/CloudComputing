@@ -127,7 +127,7 @@ def GetEmpName():
         db_conn.commit()
         cursor.close()
    
-    return render_template('TakeAttendance.html', emp_id=emp_id) 
+    return render_template('TakeAttendance.html', emp_id=emp_id, name=name) 
 
 #@@@@@@@@@@Payroll
 
