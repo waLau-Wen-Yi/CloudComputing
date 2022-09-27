@@ -707,7 +707,7 @@ def applyLeave():
     emp_image_file = request.files['leave_file']
 
     # Uplaod image file in S3 #
-    emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + datetime.now()
+    emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + str(datetime.now())
     s3 = boto3.resource('s3')
 
     try:
