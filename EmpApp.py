@@ -114,7 +114,6 @@ def TakeAttendance():
 @app.route("/getempname", methods=['GET'])
 def GetEmpName():
     emp_id = 0
-    name_arr = []
     cursor = db_conn.cursor()
     name = ""
 
@@ -124,14 +123,9 @@ def GetEmpName():
         value = cursor.fetchall()
         for row in value:
             print(row[0])
-            name_arr.append(row[0] + " " + row[1])
+            name = row[0]
         db_conn.commit()
         cursor.close()
-    if(len(name_arr) > 0):
-        name = name_arr[0]
-    else:
-        name = ""
-    print(name)
    
     return render_template('TakeAttendance.html', emp_id=emp_id) 
 
