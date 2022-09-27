@@ -158,6 +158,7 @@ def addCheckIn():
         in_time = value[1]
         #in_time_arr = in_time.split(':')
         if(in_time != None):
+            print(in_time)
             in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
         out_time = value[2]
