@@ -157,9 +157,12 @@ def addCheckIn():
 
         in_time = value[1]
         #in_time_arr = in_time.split(':')
-        in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+        if(in_time != None):
+            in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+
         out_time = value[2]
-        out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+        if(out_time != None):
+            out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
         #check whether the emp id exists
         if(name != ""):
