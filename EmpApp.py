@@ -276,12 +276,12 @@ def addCheckIn():
             #in_time_arr = in_time.split(':')
             if(in_time != None and in_time != ""):
                 print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
             if(out_time != None and out_time != ""):
                 print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
             if(dates != None and dates != ""):
@@ -294,7 +294,7 @@ def addCheckIn():
         if(name != ""):
             #check whether the last time it is check in or checkout
             if(in_time == "" or in_time == None):
-                in_time = datetime.datetime.now().strftime("%I:%M:%S%p")
+                in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
                 
                 cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
@@ -352,12 +352,12 @@ def addCheckOut():
             #in_time_arr = in_time.split(':')
             if(in_time != None and in_time != ""):
                 print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
             if(out_time != None and out_time != ""):
                 print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
             if(dates != None and dates != ""):
@@ -429,12 +429,12 @@ def applyLeave():
             #in_time_arr = in_time.split(':')
             if(in_time != None and in_time != ""):
                 print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
             if(out_time != None and out_time != ""):
                 print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
             if(dates != None and dates != ""):
