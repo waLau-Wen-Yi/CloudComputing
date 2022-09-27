@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Attendance Page</title>
+	<title>Attendance Log</title>
     <style>
         .button-style{
             background: grey; 
@@ -10,41 +10,139 @@
             color:white; 
             font:oblique;
         }
+        .table-border{
+            border:none;
+            border-top:2px solid black;
+        }
+        td{
+            text-align: center;
+        }
     </style>
 </head>
-<body style="margin-top:150px;">
-    <h1 style="text-align:center"><font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span style="font-family: avenir;">Attendance Page</span></strong></span></span></font></h1>
-    <center style="width:50%;margin:0 auto">
-        <table border="1" cellpadding="1" cellspacing="1" style="width: 50%;">
+<form action="" method="GET"></form>
+<body style="width:50%;margin:0 auto;margin-top:150px;">
+    <h1 style="text-align:center"><font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span style="font-family: avenir;">Attendance Log</span></strong></span></span></font></h1>
+    <div id="filter-btn" style="background: grey; padding: 10px 0px; border-radius:3px; height: 20px; width: 100px; color:white; font:oblique;text-align: center;vertical-align: bottom;">Filter</div>
+    <select name="filter" id="filter" style="text-align:left;display:none;">
+        <option value="datetime">DateTime</option>
+        <option value="status">Status</option>
+    </select>
+    <div id="panelDateTime" style="margin:0 auto;margin-bottom:8px;">
+        <label for="fstart">Start date:</label>
+        <input type="date" id="fstart" class="date" name="fstart">
+        <span>&nbsp;</span>
+
+        <label for="fend">End date:</label>
+        <input type="date" id="fend" class="date" name="fend">
+        <span>&nbsp;</span>
+
+        <label for="intime">Check-in time:</label>
+        <input type="time" id="intime" class="time" name="intime">
+        <br />
+        <div style="margin:8px;"></div>
+        <label for="outtime">Check-out time:</label>
+        <input type="time" id="outtime" class="time" name="outtime">
+    </div>
+    
+    
+    <center style="width:50%;">
+        <table border="1" cellpadding="1" cellspacing="1" style="width: 50%;padding:5px;">
+            <thead>
+                <tr>
+                    <td>Profile Picture</td>
+                    <td>Employee Id</td>
+                    <td>Employee Name</td>
+                    <td>Position</td>
+                    <td>Check-in Time</td>
+                    <td>Check-Out Time</td>
+                    <td>Attendance Status</td>
+                    <td></td>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <td style="width: 45%;">
-                    <p style="text-align: center;">{{ image_url }}</p>
+                        <p style="text-align: center;">{{ image_url }}</p>
                     </td>
-                </tr>
-                <tr>
                     <td style="width: 45%;">
-                    <p style="text-align: center;"><span style="color:#3498db;"><strong>{{ fname }}&nbsp;{{ lname }}</strong></span><br />
-                    <em>{{ position }}</em></p>
+                        <p style="text-align: center;"><span style="color:#3498db;"><strong>{{emp_id}}</strong></span><br />
+                    </td>
+                    <td style="width: 45%;">
+                        <p style="text-align: center;"><span style="color:#3498db;"><strong>{{ fname }}&nbsp;{{ lname }}</strong></span><br />
+                    </td>
+                    <td style="width: 45%;">
+                        <p style="text-align: center;">
+                            <span style="color:#3498db;">{{ position }}</span>
+                        </p>
+                    </td>
+                    <td style="width: 298px; text-align: center;">
+                        <p>{{check_in_time}}</p>
+                    </td>
+                    <td style="width: 298px; text-align: center; vertical-align: middle;">
+                        <p>{{check_out_time}}<br /></p>
+                    </td>
+                    <td style="width: 298px; text-align:left;">
+                        <input type="radio" id="Present" name="status" value="Present">
+                        <label for="Present">Present</label>
+                        <input type="radio" id="Absent" name="status" value="Absent">
+                        <label for="Absent">Absent</label><br>
+                        <input type="radio" id="Leave" name="status" value="Leave">
+                        <label for="Leave">Leave</label><br>
+                          <br><br>
+                    </td>
+                    <td>
+                        <input type="submit" value="Submit" />
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 298px; text-align: center;">
-                    <p>ID: {{ id }}<br />
-                    Phone: {{ phone }}<br />
-                    Email: {{ email }}</p>
-                    </td>
                 </tr>
                 <tr>
-                    <td style="width: 298px; text-align: center;">
-                    <p><span style="font-size:20px;"><strong><span style="color:#3498db;">Join&nbsp;</span>: {{ jdate }}<br />
-                    <span style="color:#3498db;">Expire&nbsp;</span>: {{ xdate }}</strong>&nbsp;</span></p>
-                    </td>
+                    
+                </tr>
+                <tr>
+                   
+                </tr>
+                <tr>
+                    
+                </tr>
+                <tr>
+                    
                 </tr>
             </tbody>
         </table>        
     </center>
     
 </body>
+<script type="text/javascript">
+    //@@@ Built Function
+    function dateToYMD(date) {
+        var d = date.getDate();
+        var m = date.getMonth() + 1; //Month from 0 to 11
+        var y = date.getFullYear();
+        return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+    }
+
+    function selectDate(){
+        let d = new Date();
+        return d.toISOString().slice(0,10)
+        //return dateToYMD(d);
+    }
+
+    document.getElementById("filter-btn").addEventListener("click",()=>{
+        var filter = document.getElementById("filter"); 
+
+        if(filter.style.display=="none"){
+            filter.style.display = "block";
+        }
+        else{
+            filter.style.display = "none";
+        }
+    });
+
+    //@@@ Call JS Function
+    document.getElementById("fstart").value = selectDate();
+    document.getElementById("fend").value = selectDate();
+    
+</script>
 
 </html>

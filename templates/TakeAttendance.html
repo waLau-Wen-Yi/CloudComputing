@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Take Attendance Page</title>
+	<style>
+		.button-style {
+			background: grey;
+			height: 45px;
+			width: 200px;
+			color: white;
+			font: oblique;
+		}
+	</style>
+</head>
+
+<body>
+	<center style="margin:0 auto;margin-top:10%;">
+		<font color="black" size="4" style="font-family: avenir">
+
+			<h1 style="color: DodgerBlue">Take Attendance Page</h1>
+
+			<body bgcolor="lightgrey">
+
+				<form action="/getempname" autocomplete="on" method="GET" enctype="multipart/form-data">
+
+					Employee Id: <br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
+						name="emp_id"><br><br>
+
+					EmployeeName: <br>
+					<p>{{name}}</p><br>
+
+					Current Time: <br>
+					<div id="time"></div><br />
+
+					<button type="submit"
+						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Get
+						Employee Information</button><br /><br />
+
+					<button formaction="/addattd" type="submit" name="checkin"
+						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Check
+						In</button><br /><br />
+
+					<button formaction="/addattd" type="submit" text="Check Out" name="checkout"
+						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Check
+						Out</button>
+
+				</form>
+
+			</body>
+			<script>function display_ct7() {
+					var x = new Date()
+					var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
+					hours = x.getHours() % 12;
+					hours = hours ? hours : 12;
+					hours = hours.toString().length == 1 ? 0 + hours.toString() : hours;
+
+					var minutes = x.getMinutes().toString()
+					minutes = minutes.length == 1 ? 0 + minutes : minutes;
+
+					var seconds = x.getSeconds().toString()
+					seconds = seconds.length == 1 ? 0 + seconds : seconds;
+
+					var month = (x.getMonth() + 1).toString();
+					month = month.length == 1 ? 0 + month : month;
+
+					var dt = x.getDate().toString();
+					dt = dt.length == 1 ? 0 + dt : dt;
+
+					var x1 = month + "/" + dt + "/" + x.getFullYear();
+					x1 = x1 + " - " + hours + ":" + minutes + ":" + seconds + " " + ampm;
+					document.getElementById('time').innerHTML = x1;
+					display_c7();
+				}
+				function display_c7() {
+					var refresh = 1000; // Refresh rate in milli seconds
+					mytime = setTimeout('display_ct7()', refresh)
+				}
+				display_c7()
+			</script>
+		</font>
+	</center>
+</body>

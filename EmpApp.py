@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
+import random
 
 app = Flask(__name__)
 
@@ -87,6 +88,29 @@ def attd():
 @app.route("/viewattd", methods=['POST'])
 def ViewAttd():
     return render_template('ViewAttendanceLog.html')
+
+@app.route("/gencode", methods=['GET'])
+def TakeAttendance():
+    emp = request.args['emp_id']
+    attendance = 0
+     
+    #generate code
+    code = random.randint(100000,999999)
+
+    #update to database
+
+
+    #display at UI 
+    return render_template('TakeAttendance.html', emp_id=emp) 
+
+@app.route("/getempname", methods=['GET'])
+def GetEmpName():
+    emp_id = 0
+    if (request.method == 'GET') :
+        emp_id = request.args['emp_id'] #request = page, args[''] = query string
+        db_conn.cursor().execute("SELECT fname, lname FROM employee WHERE emp_id = (%s)", (emp_id)) #value of emp_id is from data field
+        value = db_conn.fetchall()
+    return render_template('TakeAttendance.html', id=emp_id) 
 
 #@@@@@@@@@@Payroll
 
