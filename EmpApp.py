@@ -699,12 +699,15 @@ def addCheckOut():
         return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist)
 
 
-@app.route("/applyleave", methods=['GET'])
+@app.route("/applyleave", methods=['POST'])
 def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
     emp_id = request.args['emp_id']
     emp_image_file = request.files['leave_file']
+
+    if emp_image_file.filename == "":
+        return "Please select a file"
 
     # Uplaod image file in S3 #
     emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + str(datetime.now())
