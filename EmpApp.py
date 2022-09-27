@@ -699,7 +699,7 @@ def addCheckOut():
         return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist)
 
 
-@app.route("/applyleave", methods=['GET'])
+@app.route("/applyleave", methods=['POST'])
 def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
@@ -742,7 +742,7 @@ def applyLeave():
     finally:
         cursor.close()
 
-    return render_template('UpdateAttdStatus.html', leave_file=object_url, emp_id = emp_id, isExist=isExist) 
+    return render_template('UpdateAttdStatus.html',isExist=isExist) 
 
 # @@@@@@@@@@Payroll
 
