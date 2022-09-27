@@ -276,12 +276,12 @@ def addCheckIn():
             #in_time_arr = in_time.split(':')
             if(in_time != None and in_time != ""):
                 print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
 
             out_time = value[2]
             if(out_time != None and out_time != ""):
                 print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
 
             dates = value[3]
             if(dates != None and dates != ""):
@@ -294,7 +294,7 @@ def addCheckIn():
         if(name != ""):
             #check whether the last time it is check in or checkout
             if(in_time == "" or in_time == None):
-                in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                in_time = datetime.datetime.now().strftime("%I:%M:%S%p")
                 print(in_time)
                 
                 cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
@@ -337,7 +337,7 @@ def addCheckOut():
     
 
     insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s) "
-    getInTime_sql = "SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id = %s"
+    getInTime_sql = "SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id =SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id = %s"
 
 
     if (request.method == 'GET') :
@@ -352,12 +352,12 @@ def addCheckOut():
             #in_time_arr = in_time.split(':')
             if(in_time != None and in_time != ""):
                 print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
 
             out_time = value[2]
             if(out_time != None and out_time != ""):
                 print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
 
             dates = value[3]
             if(dates != None and dates != ""):
@@ -382,6 +382,87 @@ def addCheckOut():
                     #insert data
                     out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                     cursor.execute(insert_sql, (out_time, emp_id))
+                    db_conn.commit()
+                    isExist = 14
+
+                elif(out_time > in_time):  #else tell them that they have checked out
+                    #display message box
+                    isExist = 11
+                else:
+                    #display message box
+                    isExist = 2
+                
+        else:
+            #display message box
+            isExist = 3
+
+        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
+
+@app.route("/applyleave", methods=['GET'])
+def applyLeave():
+    cursor = db_conn.cursor()
+    name = ""
+    isExist = 0
+    msg = ""
+
+    emp_id = 0
+    attd_id = ""
+    in_time = ""
+    out_time = ""
+    attd_status = ""
+    dates = ""
+    
+
+    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s) "
+    getInTime_sql = "SELECT in_time FROM attendance WHERE emp_id = '200200' AND attd_id = (SELECT MAX(attd_id) FROM attendance WHERE emp_id = %s)"
+
+
+    if (request.method == 'GET') :
+        emp_id = request.args['emp_id'] #request = page, args[''] = query string
+        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
+        value = cursor.fetchone()
+        if(value != None and len(value) > 0):
+            name = value[0]
+            print(name)
+
+            in_time = value[1]
+            #in_time_arr = in_time.split(':')
+            if(in_time != None and in_time != ""):
+                print("in:",in_time)
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S%p")
+
+            out_time = value[2]
+            if(out_time != None and out_time != ""):
+                print("out:",out_time)
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S%p")
+
+            dates = value[3]
+            if(dates != None and dates != ""):
+                match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
+                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
+
+        #check whether the emp id exists
+        if(name != ""):
+            #check whether the last time it is check in or checkout
+            if(out_time == "" or out_time == None):
+                cursor.execute(getInTime_sql, (emp_id))
+                in_time = cursor.fetchone()[0]
+                db_conn.commit()
+                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                print("out:",out_time)
+                cursor.execute(insert_sql, (out_time, emp_id, in_time))
+                db_conn.commit()
+                isExist = 14
+                #insert data
+            elif(out_time != None):
+                if(out_time < in_time): #if check-in then can check out
+                    #insert data
+                    cursor.execute(getInTime_sql, (emp_id))
+                    in_time = cursor.fetchone()[0]
+                    db_conn.commit()
+                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                    print("out:",out_time)
+                    cursor.execute(insert_sql, (out_time, emp_id, in_time))
                     db_conn.commit()
                     isExist = 14
 

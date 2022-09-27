@@ -1,69 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Update Attendance Status Page</title>
+    <title>Apply Leave Page</title>
     <style>
-        .button-style{
-            background: grey; 
-            height: 45px; 
-            width: 200px; 
-            color:white; 
-            font:oblique;
+        .button-style {
+            background: grey;
+            height: 45px;
+            width: 200px;
+            color: white;
+            font: oblique;
         }
     </style>
 </head>
 
-<body style="margin-top:150px;">
-    <h1 style="text-align:center"><font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span style="font-family: avenir;">Update Attendance Status Page</span></strong></span></span></font></h1>
-    <center style="width:50%;margin:0 auto">
-        <table border="1" cellpadding="1" cellspacing="1" style="width: 50%;">
-            <thead>
-                <tr>
-                    <td>Profile Picture</td>
-                    <td>Employee Name</td>
-                    <td>Position</td>
-                    <td>Check-in Time</td>
-                    <td>Check-Out Time</td>
-                    <td>Attendance Status</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="width: 45%;">
-                        <p style="text-align: center;">{{ image_url }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 45%;">
-                        <p style="text-align: center;"><span style="color:#3498db;"><strong>{{ fname }}&nbsp;{{ lname }}</strong></span><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 45%;">
-                        <p style="text-align: center;">
-                            <span style="color:#3498db;">{{ position }}</span>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 298px; text-align: center;">
-                        <p>{{check_in_time}}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 298px; text-align: center;">
-                        <p>{{check_out_time}}<br /></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 298px; text-align: center;">
-                        <p>{{status}}<br /></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>        
-    </center>
-    
-</body>
+<body>
+    <center style="margin:0 auto;margin-top:10%;">
+        <font color="black" size="4" style="font-family: avenir">
+
+            <h1 style="color: DodgerBlue">Apply Leave Page</h1>
+
+            <body bgcolor="lightgrey">
+
+                <form action="/getempname" autocomplete="on" method="GET" enctype="multipart/form-data">
+
+                    Employee Id: <br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
+                        name="emp_id"><br><br>
+                    <!-- 
+					EmployeeName: <br>
+					<p>{{name}}</p><br> -->
+
+                    Current Time: <br>
+                    <div id="time"></div><br />
+
+                    <!-- <button type="submit"
+						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Get
+						Employee Information</button><br /><br /> -->
+
+                    Image: <input type="file" name="leave_file" style="height:25px;font-size:14pt;color:grey;">
+                    <br><br>
+
+                    <button formaction="/applyleave" type="submit" name="checkin"
+                        style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Apply
+                    </button><br /><br />
+
+                </form>
+
+            </body>
+
+
+
 
 </html>
