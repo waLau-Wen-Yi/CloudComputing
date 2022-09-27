@@ -26,16 +26,16 @@
 
 					Employee Id: <br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
 						name="emp_id"><br><br>
-
+					<!-- 
 					EmployeeName: <br>
-					<p>{{name}}</p><br>
+					<p>{{name}}</p><br> -->
 
 					Current Time: <br>
 					<div id="time"></div><br />
 
-					<button type="submit"
+					<!-- <button type="submit"
 						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Get
-						Employee Information</button><br /><br />
+						Employee Information</button><br /><br /> -->
 
 					<button formaction="/addattd" type="submit" name="checkin"
 						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Check
@@ -48,7 +48,8 @@
 				</form>
 
 			</body>
-			<script>function display_ct7() {
+			<script>
+				function display_ct7() {
 					var x = new Date()
 					var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
 					hours = x.getHours() % 12;
@@ -76,6 +77,24 @@
 					var refresh = 1000; // Refresh rate in milli seconds
 					mytime = setTimeout('display_ct7()', refresh)
 				}
+
+				//@@Error msg
+				function displayErrorMsg(){
+					isExist = '{{isExist}}';
+					var msg = "";
+					if(isExist == 1){
+						msg = "You have already checked in."
+					}
+					else if(isExist == 2){
+						msg = "Please try again."
+					}
+					else if(isExist == 3){
+						msg = "Incorrect employee id. Please try again."
+					}
+					alert(msg);
+				}
+
+				//@@@Method call 
 				display_c7()
 			</script>
 		</font>
