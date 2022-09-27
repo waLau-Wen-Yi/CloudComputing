@@ -266,23 +266,24 @@ def addCheckIn():
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s) GROUP BY fname, lname, date", (emp_id)) #value of emp_id is from data field
         value = cursor.fetchone()
-        name = value[0]
-        print(name)
+        if(len(value) > 0):
+            name = value[0]
+            print(name)
 
-        in_time = value[1]
-        #in_time_arr = in_time.split(':')
-        if(in_time != None):
-            print(in_time)
-            in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+            in_time = value[1]
+            #in_time_arr = in_time.split(':')
+            if(in_time != None):
+                print(in_time)
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
-        out_time = value[2]
-        if(out_time != None):
-            out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+            out_time = value[2]
+            if(out_time != None):
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
-        date = value[3]
-        if(date != None):
-            match = re.search(r'\d{4}-\d{2}-\d{2}', date)
-            date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+            date = value[3]
+            if(date != None):
+                match = re.search(r'\d{4}-\d{2}-\d{2}', date)
+                date = datetime.strptime(match.group(), '%Y-%m-%d').date()
 
         #check whether the emp id exists
         if(name != ""):
