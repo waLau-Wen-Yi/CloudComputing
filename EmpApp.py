@@ -279,7 +279,7 @@ def addCheckIn():
                 in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
-            if(out_time != None and in_time != ""):
+            if(out_time != None and out_time != ""):
                 print(out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
