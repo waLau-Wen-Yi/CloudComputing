@@ -27,22 +27,28 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
-#------------------------------------------guan tong------------------------------------------------
+# ------------------------------------------guan tong------------------------------------------------
+
+
 @app.route("/back", methods=['GET', 'POST'])
 def back():
     return render_template('salary.html')
+
 
 @app.route("/salary", methods=['GET', 'POST'])
 def salary():
     return render_template('salary.html')
 
+
 @app.route("/examine", methods=['GET', 'POST'])
 def examine():
     return render_template('examine.html')
-    
+
+
 @app.route("/update", methods=['GET', 'POST'])
 def update():
     return render_template('update.html')
+
 
 @app.route("/view", methods=['GET', 'POST'])
 def view():
@@ -63,11 +69,11 @@ def view():
     cursor.execute(string4)
     result4 = cursor.fetchone()
 
-
     db_conn.commit()
     cursor.close()
 
-    return render_template('view.html', result1 = result1, result2 = result2, result3 = result3, result4 = result4[0])
+    return render_template('view.html', result1=result1, result2=result2, result3=result3, result4=result4[0])
+
 
 @app.route("/search2", methods=['POST'])
 def search2():
@@ -76,7 +82,7 @@ def search2():
     penalty = request.form['penalty']
     epf = request.form['epf']
     cursor = db_conn.cursor()
-    
+
     selectSql = "Select salary From employee Where emp_id = %s"
     id = (emp_id)
     cursor.execute(selectSql, id)
@@ -85,7 +91,7 @@ def search2():
     str(overtime)
     str(penalty)
     str(epf)
-    
+
     total = int(result1[0]) + (int(overtime) * 10) - int(penalty)
     final = ((100 - float(epf)) * float(total)) / 100
 
@@ -101,12 +107,13 @@ def search2():
     db_conn.commit()
     cursor.close()
 
-    return render_template('update.html', result = result1[0], finalSalary = finalSalary[0])
+    return render_template('update.html', result=result1[0], finalSalary=finalSalary[0])
+
 
 @app.route("/search", methods=['POST'])
 def search():
     emp_id = request.form['emp1_id']
-    
+
     cursor = db_conn.cursor()
     selectSql = "Select salary From employee Where emp_id = %s"
     id = (emp_id)
@@ -114,42 +121,45 @@ def search():
     result2 = cursor.fetchone()
     db_conn.commit()
 
-    cursor.close()  
-    return render_template('examine.html', result = result2[0])
+    cursor.close()
+    return render_template('examine.html', result=result2[0])
 
-#-----------------------------------------------------------------------------------------------------------------
-#@app.route("/addemp", methods=['POST'])
-#def AddEmp():
-#    emp_id = request.form['emp_id']   
+# -----------------------------------------------------------------------------------------------------------------
+# @app.route("/addemp", methods=['POST'])
+# def AddEmp():
+#    emp_id = request.form['emp_id']
  #   first_name = request.form['first_name']
-   #pri_skill = request.form['pri_skill']
+   # pri_skill = request.form['pri_skill']
   #  location = request.form['location']
    # position = request.form['position']
    # emp_image_file = request.files['emp_image_file']
 
-    #insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location, position, salary) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    #cursor = db_conn.cursor()
+    # insert_sql = "INSERT INTO employee (emp_id, first_name, last_name, pri_skill, location, position, salary) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    # cursor = db_conn.cursor()
 
    # if position == 'Senior':
     #    salary = 6000
-    #else:
+    # else:
     #    salary = 3000
-    #cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, position, salary))
-    #db_conn.commit()   
+    # cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location, position, salary))
+    # db_conn.commit()
 
 
-#@@@@@@@@@@General
+# @@@@@@@@@@General
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('Home.html')
+
 
 @app.route("/about", methods=['POST'])
 def about():
     return render_template('www.intellipaat.com')
 
-#------------------------------------------wen yi------------------------------------------------
+# ------------------------------------------wen yi------------------------------------------------
 
-#@@@@@@@@@@Employee Management
+# @@@@@@@@@@Employee Management
+
+
 @app.route("/empmng", methods=['GET', 'POST'])
 def EmpMng():
     return render_template('/EmpMng/EmpMngHome.html')
@@ -158,6 +168,7 @@ def EmpMng():
 @app.route("/rgsemp", methods=['GET', 'POST'])
 def RgsEmp():
     return render_template('/EmpMng/RegisEmp.html')
+
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -183,20 +194,23 @@ def AddEmp():
 
         try:
 
-            cursor.execute(insert_sql, 
+            cursor.execute(insert_sql,
                 (emp_id, "", emp_fname,
                  emp_lname, emp_position, emp_phone,
                   emp_email, emp_jdate, emp_salary,
                    emp_location, emp_interest, emp_dob, emp_skills))
             db_conn.commit()
             # Uplaod image file in S3 #
-            emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_profile_pic"
+            emp_image_file_name_in_s3 = "emp-id-" + \
+                str(emp_id) + "_profile_pic"
             s3 = boto3.resource('s3')
 
             try:
                 print("Data inserted in MySQL RDS... uploading image to S3...")
-                s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
-                bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+                s3.Bucket(custombucket).put_object(
+                    Key=emp_image_file_name_in_s3, Body=emp_image_file)
+                bucket_location = boto3.client(
+                    's3').get_bucket_location(Bucket=custombucket)
                 s3_location = (bucket_location['LocationConstraint'])
 
                 if s3_location is None:
@@ -209,7 +223,8 @@ def AddEmp():
                     custombucket,
                     emp_image_file_name_in_s3)
 
-                cursor.execute("UPDATE employee SET imgurl = (%s) WHERE id = (%s)", object_url, emp_id)
+                cursor.execute(
+                    "UPDATE employee SET imgurl = (%s) WHERE id = (%s)", object_url, emp_id)
                 db_conn.commit()
 
             except Exception as e:
@@ -219,21 +234,22 @@ def AddEmp():
             cursor.close()
 
         print("all modification done...")
-        return render_template('/EmpMng/ShowEmpDetails.html', 
-             id = emp_id, 
-             imgurl = object_url,
-             fname = emp_fname,
-             lname = emp_lname,
-             position = emp_position,
-             phone = emp_phone,
-             email = emp_email,
-             jdate = emp_jdate,
-             salary = emp_salary,
-             location = emp_location,
-             interest = emp_interest,
-             dob = emp_dob,
-             skills = emp_skills
+        return render_template('/EmpMng/ShowEmpDetails.html',
+             id=emp_id,
+             imgurl=object_url,
+             fname=emp_fname,
+             lname=emp_lname,
+             position=emp_position,
+             phone=emp_phone,
+             email=emp_email,
+             jdate=emp_jdate,
+             salary=emp_salary,
+             location=emp_location,
+             interest=emp_interest,
+             dob=emp_dob,
+             skills=emp_skills
              )
+
 
 @app.route("/shwempdtl", methods=['GET', 'POST'])
 def ShwEmpDtl():
@@ -243,26 +259,28 @@ def ShwEmpDtl():
     cursor = db_conn.cursor()
     if (request.method == 'GET'):
         emp_id = request.args['emp_id']
-        qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM employee WHERE id = (%s)", (emp_id))
         if qryRslt == 0:
-            return render_template(routePage, id = "DOES NOT EXISTED, PLEASE SEARCH ANOTHER ID")
+            return render_template(routePage, id="DOES NOT EXISTED, PLEASE SEARCH ANOTHER ID")
         else:
             empData = cursor.fetchall()
             return render_template(routePage,
-             id = empData[0][0], 
-             fname = empData[0][2],
-             lname = empData[0][3],
-             position = empData[0][4],
-             phone = empData[0][5],
-             email = empData[0][6],
-             jdate = empData[0][7],
-             salary = empData[0][8],
-             location = empData[0][9],
-             interest = empData[0][10],
-             dob = empData[0][11],
-             skills = empData[0][12]
+             id=empData[0][0],
+             fname=empData[0][2],
+             lname=empData[0][3],
+             position=empData[0][4],
+             phone=empData[0][5],
+             email=empData[0][6],
+             jdate=empData[0][7],
+             salary=empData[0][8],
+             location=empData[0][9],
+             interest=empData[0][10],
+             dob=empData[0][11],
+             skills=empData[0][12]
              )
-    return render_template(routePage, id = "")
+    return render_template(routePage, id="")
+
 
 @app.route("/edtempdtl", methods=['GET', 'POST'])
 def EdtEmpDtl():
@@ -270,26 +288,28 @@ def EdtEmpDtl():
     cursor = db_conn.cursor()
     if (request.method == 'GET'):
         emp_id = request.args['emp_id']
-        qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM employee WHERE id = (%s)", (emp_id))
         if qryRslt == 0:
-            return render_template(routePage, id = "DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
+            return render_template(routePage, id="DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
         else:
             empData = cursor.fetchall()
             return render_template(routePage,
-             id = empData[0][0], 
-             fname = empData[0][2],
-             lname = empData[0][3],
-             position = empData[0][4],
-             phone = empData[0][5],
-             email = empData[0][6],
-             jdate = empData[0][7],
-             salary = empData[0][8],
-             location = empData[0][9],
-             interest = empData[0][10],
-             dob = empData[0][11],
-             skills = empData[0][12]
+             id=empData[0][0],
+             fname=empData[0][2],
+             lname=empData[0][3],
+             position=empData[0][4],
+             phone=empData[0][5],
+             email=empData[0][6],
+             jdate=empData[0][7],
+             salary=empData[0][8],
+             location=empData[0][9],
+             interest=empData[0][10],
+             dob=empData[0][11],
+             skills=empData[0][12]
              )
     return render_template(routePage)
+
 
 @app.route('/rmvemp', methods=['GET', 'POST'])
 def RmvEmp():
@@ -297,19 +317,21 @@ def RmvEmp():
     cursor = db_conn.cursor()
     if (request.method == 'GET'):
         emp_id = request.args['emp_id']
-        qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM employee WHERE id = (%s)", (emp_id))
         if qryRslt == 0:
-            return render_template(routePage, id = "DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
+            return render_template(routePage, id="DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
         else:
             empData = cursor.fetchall()
             return render_template(routePage,
-             id = empData[0][0],
-             fname = empData[0][2],
-             lname = empData[0][3],
-             position = empData[0][4],
-             jdate = empData[0][7]
+             id=empData[0][0],
+             fname=empData[0][2],
+             lname=empData[0][3],
+             position=empData[0][4],
+             jdate=empData[0][7]
              )
     return render_template(routePage)
+
 
 @app.route('/rmvempcmfrm', methods=['GET'])
 def RmvEmpCmfrm():
@@ -318,84 +340,92 @@ def RmvEmpCmfrm():
     emp_id = request.args['emp_id']
     qryRslt = cursor.execute("DELETE FROM employee WHERE id = %s", (emp_id))
     if qryRslt == 1:
-        return render_template(routePage, id = "ID ({}) HAS BEEN DELETED".format(emp_id))
+        return render_template(routePage, id="ID ({}) HAS BEEN DELETED".format(emp_id))
     else:
-        return render_template(routePage, id = "SOMETHING IS WRONG")
+        return render_template(routePage, id="SOMETHING IS WRONG")
 
-#@@@@@@@@@@Performance Tracker
+# @@@@@@@@@@Performance Tracker
+
+
 @app.route('/prftrk', methods=['GET', 'POST'])
 def PrfTrk():
     routePage = "/PrfTrk/PrfTrk.html"
     cursor = db_conn.cursor()
     if (request.method == 'GET'):
         emp_id = request.args['emp_id']
-        qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM employee WHERE id = (%s)", (emp_id))
         if qryRslt == 0:
-            return render_template(routePage, id = "DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
+            return render_template(routePage, id="DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
         else:
             empData = cursor.fetchall()
             goal_id = 'prf{}'.format(emp_id)
-            qryRslt = cursor.execute("SELECT * FROM performance WHERE prf_id = %s", (goal_id))
+            qryRslt = cursor.execute(
+                "SELECT * FROM performance WHERE prf_id = %s", (goal_id))
             if (qryRslt == 1):
                 prfData = cursor.fetchall()
                 return render_template(routePage,
-                id = empData[0][0],
-                fname = empData[0][2],
-                lname = empData[0][3],
-                position = empData[0][4],
-                jdate = empData[0][7],
-                goal = prfData[0][1],
-                objective = prfData[0][2],
-                grade = prfData[0][3],
-                pros = prfData[0][4],
-                cons = prfData[0][5]
+                id=empData[0][0],
+                fname=empData[0][2],
+                lname=empData[0][3],
+                position=empData[0][4],
+                jdate=empData[0][7],
+                goal=prfData[0][1],
+                objective=prfData[0][2],
+                grade=prfData[0][3],
+                pros=prfData[0][4],
+                cons=prfData[0][5]
                 )
             else:
                 return render_template(routePage,
-                id = empData[0][0],
-                fname = empData[0][2],
-                lname = empData[0][3],
-                position = empData[0][4],
-                jdate = empData[0][7],
-                goal = "DATA NOT FOUNDED"
+                id=empData[0][0],
+                fname=empData[0][2],
+                lname=empData[0][3],
+                position=empData[0][4],
+                jdate=empData[0][7],
+                goal="DATA NOT FOUNDED"
                 )
     return render_template(routePage)
+
 
 @app.route('/prftrkedt', methods=['GET'])
 def PrfTrkEdt():
     routePage = "/PrfTrk/PrfTrkEdt.html"
     cursor = db_conn.cursor()
     emp_id = request.args['emp_id']
-    qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+    qryRslt = cursor.execute(
+        "SELECT * FROM employee WHERE id = (%s)", (emp_id))
     if qryRslt == 0:
-        return render_template(routePage, id = "DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
+        return render_template(routePage, id="DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
     else:
         empData = cursor.fetchall()
         goal_id = 'prf{}'.format(emp_id)
-        qryRslt = cursor.execute("SELECT * FROM performance WHERE prf_id = %s", (goal_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM performance WHERE prf_id = %s", (goal_id))
         if (qryRslt == 1):
             prfData = cursor.fetchall()
             return render_template(routePage,
-            id = empData[0][0],
-            fname = empData[0][2],
-            lname = empData[0][3],
-            position = empData[0][4],
-            jdate = empData[0][7],
-            goal = prfData[0][1],
-            objective = prfData[0][2],
-            grade = prfData[0][3],
-            pros = prfData[0][4],
-            cons = prfData[0][5]
+            id=empData[0][0],
+            fname=empData[0][2],
+            lname=empData[0][3],
+            position=empData[0][4],
+            jdate=empData[0][7],
+            goal=prfData[0][1],
+            objective=prfData[0][2],
+            grade=prfData[0][3],
+            pros=prfData[0][4],
+            cons=prfData[0][5]
             )
         else:
             return render_template(routePage,
-            id = empData[0][0],
-            fname = empData[0][2],
-            lname = empData[0][3],
-            position = empData[0][4],
-            jdate = empData[0][7],
-            goal = "DATA NOT FOUNDED"
+            id=empData[0][0],
+            fname=empData[0][2],
+            lname=empData[0][3],
+            position=empData[0][4],
+            jdate=empData[0][7],
+            goal="DATA NOT FOUNDED"
             )
+
 
 @app.route('/prfedtact', methods=['POST'])
 def PrfEdtAct():
@@ -413,69 +443,77 @@ def PrfEdtAct():
         (goal, objective, grade, pros, cons, goal_id))
     db_conn.commit()
 
-    qryRslt = cursor.execute("SELECT * FROM employee WHERE id = (%s)", (emp_id))
+    qryRslt = cursor.execute(
+        "SELECT * FROM employee WHERE id = (%s)", (emp_id))
     if qryRslt == 0:
-        return render_template(routePage, id = "DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
+        return render_template(routePage, id="DATA NOT FOUNDED, PLEASE SEARCH ANOTHER ID")
     else:
         empData = cursor.fetchall()
         goal_id = 'prf{}'.format(emp_id)
-        qryRslt = cursor.execute("SELECT * FROM performance WHERE prf_id = %s", (goal_id))
+        qryRslt = cursor.execute(
+            "SELECT * FROM performance WHERE prf_id = %s", (goal_id))
         if (qryRslt == 1):
             prfData = cursor.fetchall()
             return render_template(routePage,
-            id = empData[0][0],
-            fname = empData[0][2],
-            lname = empData[0][3],
-            position = empData[0][4],
-            jdate = empData[0][7],
-            goal = prfData[0][1],
-            objective = prfData[0][2],
-            grade = prfData[0][3],
-            pros = prfData[0][4],
-            cons = prfData[0][5]
+            id=empData[0][0],
+            fname=empData[0][2],
+            lname=empData[0][3],
+            position=empData[0][4],
+            jdate=empData[0][7],
+            goal=prfData[0][1],
+            objective=prfData[0][2],
+            grade=prfData[0][3],
+            pros=prfData[0][4],
+            cons=prfData[0][5]
             )
         else:
             return render_template(routePage,
-            id = empData[0][0],
-            fname = empData[0][2],
-            lname = empData[0][3],
-            position = empData[0][4],
-            jdate = empData[0][7],
-            goal = "DATA NOT FOUNDED"
+            id=empData[0][0],
+            fname=empData[0][2],
+            lname=empData[0][3],
+            position=empData[0][4],
+            jdate=empData[0][7],
+            goal="DATA NOT FOUNDED"
             )
 
-#-----------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
 
-#@@@@@@@@@@Attendance
+# @@@@@@@@@@Attendance
+
+
 @app.route("/attd", methods=['POST'])
 def attd():
     return render_template('Attendance.html')
+
 
 @app.route("/viewattd", methods=['POST'])
 def ViewAttd():
     return render_template('ViewAttendanceLog.html')
 
+
 @app.route("/takeattd", methods=['POST'])
 def GoToTakeAttd():
     return render_template('TakeAttendance.html')
+
 
 @app.route("/updateattd", methods=['POST'])
 def GoToUpdateAttd():
     return render_template('UpdateAttdStatus.html')
 
+
 @app.route("/gencode", methods=['GET'])
 def TakeAttendance():
     emp = request.args['emp_id']
     attendance = 0
-     
-    #generate code
-    code = random.randint(100000,999999)
 
-    #update to database
+    # generate code
+    code = random.randint(100000, 999999)
 
+    # update to database
 
-    #display at UI 
-    return render_template('TakeAttendance.html', emp_id=emp) 
+    # display at UI
+    return render_template('TakeAttendance.html', emp_id=emp)
+
 
 @app.route("/getempname", methods=['GET'])
 def GetEmpName():
@@ -483,9 +521,12 @@ def GetEmpName():
     cursor = db_conn.cursor()
     name = ""
 
-    if (request.method == 'GET') :
-        emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name FROM employee WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
+    if (request.method == 'GET'):
+        # request = page, args[''] = query string
+        emp_id = request.args['emp_id']
+        # value of emp_id is from data field
+        cursor.execute(
+            "SELECT CONCAT(fname, ' ', lname) AS name FROM employee WHERE id = (%s)", (emp_id))
         value = cursor.fetchall()
         for row in value:
             print(row[0])
@@ -493,8 +534,9 @@ def GetEmpName():
             break
         db_conn.commit()
         cursor.close()
-   
-    return render_template('TakeAttendance.html', emp_id=emp_id, name=name) 
+
+    return render_template('TakeAttendance.html', emp_id=emp_id, name=name)
+
 
 @app.route("/addcheckin", methods=['GET'])
 def addCheckIn():
@@ -510,65 +552,70 @@ def addCheckIn():
     dates = ""
     attd_status = ""
 
-
     insert_sql = "INSERT INTO attendance(in_time, out_time, date, attd_status, emp_id) VALUES (%s, %s, %s, %s, %s)"
 
-    if (request.method == 'GET') :
-        emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s) GROUP BY fname, lname, date", (emp_id)) #value of emp_id is from data field
+    if (request.method == 'GET'):
+        # request = page, args[''] = query string
+        emp_id = request.args['emp_id']
+        # value of emp_id is from data field
+        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s) GROUP BY fname, lname, date", (emp_id))
         value = cursor.fetchone()
-        if(value != None and len(value) > 0):
+        if (value != None and len(value) > 0):
             name = value[0]
             print(name)
 
             in_time = value[1]
-            #in_time_arr = in_time.split(':')
-            if(in_time != None and in_time != ""):
-                print("in:",in_time)
+            # in_time_arr = in_time.split(':')
+            if (in_time != None and in_time != ""):
+                print("in:", in_time)
                 in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
-            if(out_time != None and out_time != ""):
-                print("out:",out_time)
+            if (out_time != None and out_time != ""):
+                print("out:", out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
-            if(dates != None and dates != ""):
+            if (dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
+                dates = datetime.datetime.strptime(
+                    match.group(), '%Y-%m-%d').date()
             else:
                 dates = date.today().strftime("%Y-%m-%d")
 
-        #check whether the emp id exists
-        if(name != ""):
-            #check whether the last time it is check in or checkout
-            if(in_time == "" or in_time == None):
+        # check whether the emp id exists
+        if (name != ""):
+            # check whether the last time it is check in or checkout
+            if (in_time == "" or in_time == None):
                 in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
-                
-                cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
+
+                cursor.execute(
+                    insert_sql, (in_time, "", dates, "Present", emp_id))
                 db_conn.commit()
                 isExist = 4
-                #insert data
-            elif(in_time != None):
-                if(out_time == "" or in_time < out_time): #if checkout then can check in
-                    #insert data
+                # insert data
+            elif (in_time != None):
+                if (out_time == "" or in_time < out_time):  # if checkout then can check in
+                    # insert data
                     in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                    cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
+                    cursor.execute(
+                        insert_sql, (in_time, "", dates, "Present", emp_id))
                     db_conn.commit()
                     isExist = 4
-                elif(in_time > out_time):  #else tell them that they have checked in
-                    #display message box
+                elif (in_time > out_time):  # else tell them that they have checked in
+                    # display message box
                     isExist = 1
                 else:
-                    #display message box
+                    # display message box
                     isExist = 2
-                
+
         else:
-            #display message box
+            # display message box
             isExist = 3
 
-        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
+        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist)
+
 
 @app.route("/addcheckout", methods=['GET'])
 def addCheckOut():
@@ -583,52 +630,53 @@ def addCheckOut():
     out_time = ""
     attd_status = ""
     dates = ""
-    
 
     insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
     getInTime_sql = "SELECT in_time FROM attendance WHERE emp_id = %s AND attd_id = (SELECT MAX(attd_id) FROM attendance WHERE emp_id = %s)"
 
-
-    if (request.method == 'GET') :
-        emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
+    if (request.method == 'GET'):
+        # request = page, args[''] = query string
+        emp_id = request.args['emp_id']
+        # value of emp_id is from data field
+        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id))
         value = cursor.fetchone()
-        if(value != None and len(value) > 0):
+        if (value != None and len(value) > 0):
             name = value[0]
             print(name)
 
             in_time = value[1]
-            #in_time_arr = in_time.split(':')
-            if(in_time != None and in_time != ""):
-                print("in:",in_time)
+            # in_time_arr = in_time.split(':')
+            if (in_time != None and in_time != ""):
+                print("in:", in_time)
                 in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
-            if(out_time != None and out_time != ""):
-                print("out:",out_time)
+            if (out_time != None and out_time != ""):
+                print("out:", out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
-            if(dates != None and dates != ""):
+            if (dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
+                dates = datetime.datetime.strptime(
+                    match.group(), '%Y-%m-%d').date()
 
-        #check whether the emp id exists
-        if(name != ""):
-            #check whether the last time it is check in or checkout
-            if(in_time!=None and (out_time == "" or out_time == None)):
+        # check whether the emp id exists
+        if (name != ""):
+            # check whether the last time it is check in or checkout
+            if (in_time != None and (out_time == "" or out_time == None)):
                 cursor.execute(getInTime_sql, (emp_id, emp_id))
                 in_time = cursor.fetchone()[0]
                 db_conn.commit()
                 out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                print("out:",out_time)
+                print("out:", out_time)
                 cursor.execute(insert_sql, (out_time, emp_id, in_time))
                 db_conn.commit()
                 isExist = 14
-                #insert data
-            elif(out_time != None):
-                if(out_time < in_time): #if check-in then can check out
-                    #insert data
+                # insert data
+            elif (out_time != None):
+                if (out_time < in_time):  # if check-in then can check out
+                    # insert data
                     cursor.execute(getInTime_sql, (emp_id, emp_id))
                     in_time = cursor.fetchone()[0]
                     db_conn.commit()
@@ -637,103 +685,65 @@ def addCheckOut():
                     db_conn.commit()
                     isExist = 14
 
-                elif(out_time > in_time):  #else tell them that they have checked out
-                    #display message box
+                elif (out_time > in_time):  # else tell them that they have checked out
+                    # display message box
                     isExist = 11
                 else:
-                    #display message box
+                    # display message box
                     isExist = 2
-                
+
         else:
-            #display message box
+            # display message box
             isExist = 3
 
-        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
+        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist)
+
 
 @app.route("/applyleave", methods=['GET'])
 def applyLeave():
     cursor = db_conn.cursor()
-    name = ""
-    isExist = 0
-    msg = ""
+    isExist = 21
+    emp_id = request.args['emp_id']
+    emp_image_file = request.files['emp_image_file']
 
-    emp_id = 0
-    attd_id = ""
-    in_time = ""
-    out_time = ""
-    attd_status = ""
-    dates = ""
-    
+    # Uplaod image file in S3 #
+    emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + datetime.now()
+    s3 = boto3.resource('s3')
 
-    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s) "
-    getInTime_sql = "SELECT in_time FROM attendance WHERE emp_id = '200200' AND attd_id = (SELECT MAX(attd_id) FROM attendance WHERE emp_id = %s)"
+    try:
+        print("Data inserted in MySQL RDS... uploading image to S3...")
+        s3.Bucket(custombucket).put_object(
+            Key=emp_image_file_name_in_s3, Body=emp_image_file)
+        bucket_location = boto3.client(
+            's3').get_bucket_location(Bucket=custombucket)
+        s3_location = (bucket_location['LocationConstraint'])
 
-
-    if (request.method == 'GET') :
-        emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
-        value = cursor.fetchone()
-        if(value != None and len(value) > 0):
-            name = value[0]
-            print(name)
-
-            in_time = value[1]
-            #in_time_arr = in_time.split(':')
-            if(in_time != None and in_time != ""):
-                print("in:",in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
-
-            out_time = value[2]
-            if(out_time != None and out_time != ""):
-                print("out:",out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
-
-            dates = value[3]
-            if(dates != None and dates != ""):
-                match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
-
-        #check whether the emp id exists
-        if(name != ""):
-            #check whether the last time it is check in or checkout
-            if(out_time == "" or out_time == None):
-                cursor.execute(getInTime_sql, (emp_id))
-                in_time = cursor.fetchone()[0]
-                db_conn.commit()
-                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                print("out:",out_time)
-                cursor.execute(insert_sql, (out_time, emp_id, in_time))
-                db_conn.commit()
-                isExist = 14
-                #insert data
-            elif(out_time != None):
-                if(out_time < in_time): #if check-in then can check out
-                    #insert data
-                    cursor.execute(getInTime_sql, (emp_id))
-                    in_time = cursor.fetchone()[0]
-                    db_conn.commit()
-                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                    print("out:",out_time)
-                    cursor.execute(insert_sql, (out_time, emp_id, in_time))
-                    db_conn.commit()
-                    isExist = 14
-
-                elif(out_time > in_time):  #else tell them that they have checked out
-                    #display message box
-                    isExist = 11
-                else:
-                    #display message box
-                    isExist = 2
-                
+        if s3_location is None:
+            s3_location = ''
         else:
-            #display message box
-            isExist = 3
+            s3_location = '-' + s3_location
 
-        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
+        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                    s3_location,
+                    custombucket,
+                    emp_image_file_name_in_s3)
 
-#@@@@@@@@@@Payroll
+        cursor.execute(
+                    "UPDATE attendance SET leaveurl = (%s) WHERE id = (%s)", object_url, emp_id)
+            
+        db_conn.commit()
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+
+    return render_template('UpdateAttdStatus.html', leave_file=object_url, emp_id = emp_id, isExist=isExist) 
+
+# @@@@@@@@@@Payroll
 
 
-#DON'T TOUCH!
+# DON'T TOUCH!
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
