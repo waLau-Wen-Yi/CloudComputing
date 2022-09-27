@@ -286,7 +286,7 @@ def addCheckIn():
             dates = value[3]
             if(dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = date.strptime(match.group(), '%Y-%m-%d').date()
+                dates = datetime.strptime(match.group(), '%Y-%m-%d').date()
             else:
                 dates = date.today().strftime("%Y-%m-%d")
 
