@@ -302,7 +302,7 @@ def addCheckIn():
                 isExist = 4
                 #insert data
             elif(in_time != None):
-                if(in_time < out_time): #if checkout then can check in
+                if(out_time == "" or in_time < out_time): #if checkout then can check in
                     #insert data
                     in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                     cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
