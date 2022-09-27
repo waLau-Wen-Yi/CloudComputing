@@ -276,11 +276,11 @@ def addCheckIn():
             #in_time_arr = in_time.split(':')
             if(in_time != None):
                 print(in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+                in_time = datetime.datetime.strftime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
             if(out_time != None):
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+                out_time = datetime.datetime.strftime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
             if(dates != None):
