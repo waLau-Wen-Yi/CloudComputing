@@ -366,7 +366,7 @@ def addCheckOut():
         if(name != ""):
             #check whether the last time it is check in or checkout
             if(out_time == "" or out_time == None):
-                out_time = datetime.datetime.strftime(datetime.now(),"%I:%M:%S %p")
+                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
                 cursor.execute(insert_sql, (out_time, emp_id))
                 db_conn.commit()
