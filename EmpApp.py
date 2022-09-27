@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask import Flask, render_template, request
 from pymysql import connections
 import os
@@ -114,11 +115,16 @@ def TakeAttendance():
 @app.route("/getempname", methods=['GET'])
 def GetEmpName():
     emp_id = 0
+    name_arr = []
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
-        db_conn.cursor().execute("SELECT fname, lname FROM employee WHERE emp_id = (%s)", (emp_id)) #value of emp_id is from data field
+        db_conn.cursor().execute("SELECT fname, lname FROM employee WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
         value = db_conn.fetchall()
-    return render_template('TakeAttendance.html', id=emp_id) 
+        if(value != NULL):
+            for row in value:
+                name_arr.append(row[0] + " " + row[1])
+
+    return render_template('TakeAttendance.html', emp_id=name_arr[0]) 
 
 #@@@@@@@@@@Payroll
 
