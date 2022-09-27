@@ -4,6 +4,8 @@ import os
 import boto3
 from config import *
 import random
+from time import gmtime, strftime
+import datetime
 
 app = Flask(__name__)
 
@@ -132,13 +134,19 @@ def GetEmpName():
 
 @app.route("/addcheckin", methods=['GET'])
 def addCheckIn():
-    emp_id = 0
     cursor = db_conn.cursor()
     name = ""
-    in_time = ""
-    out_time = ""
     isExist = 0
     msg = ""
+
+    emp_id = 0
+    attd_id = ""
+    in_time = ""
+    out_time = ""
+    attd_status = ""
+
+
+    insert_sql = "INSERT INTO attendance VALUES (%s, %s, %s, %s)"
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
@@ -153,8 +161,20 @@ def addCheckIn():
         #check whether the emp id exists
         if(name != ""):
             #check whether the last time it is check in or checkout
+            if(in_time == ""):
+                in_time = datetime.datetime.now.strftime("%I:%M:%S %p")
+                print(in_time)
+                cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
+                db_conn.commit()
+                isExist = 4
+                #insert data
+
             if(in_time < out_time): #if checkout then can check in
                 #insert data
+                in_time = datetime.datetime.now.strftime("%I:%M:%S %p")
+                cursor.execute(insert_sql, (in_time, "", "Present", emp_id))
+                db_conn.commit()
+                isExist = 4
 
                 return in_time
             elif(in_time > out_time):  #else tell them that they have checked in

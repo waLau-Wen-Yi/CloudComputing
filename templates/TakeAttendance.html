@@ -84,18 +84,26 @@
 					var msg = "";
 					if(isExist == 1){
 						msg = "You have already checked in."
+						alert(msg);
 					}
 					else if(isExist == 2){
 						msg = "Please try again."
+						alert(msg);
 					}
 					else if(isExist == 3){
 						msg = "Incorrect employee id. Please try again."
+						alert(msg);
 					}
-					alert(msg);
+					else if(isExist == 4){
+						msg = "Record inserted into database successfully. "
+						alert(msg);
+					}
+					
 				}
 
 				//@@@Method call 
 				display_c7()
+				displayErrorMsg()
 			</script>
 		</font>
 	</center>
