@@ -5,7 +5,9 @@ import boto3
 from config import *
 import random
 from time import gmtime, strftime
-import datetime
+from datetime import datetime
+import re
+
 
 app = Flask(__name__)
 
@@ -254,10 +256,84 @@ def addCheckIn():
     attd_id = ""
     in_time = ""
     out_time = ""
+    date = ""
     attd_status = ""
 
 
-    insert_sql = "INSERT INTO attendance(in_time, out_time, attd_status, emp_id) VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO attendance(in_time, out_time, date, attd_status, emp_id) VALUES (%s, %s, %s, %s, %s)"
+
+    if (request.method == 'GET') :
+        emp_id = request.args['emp_id'] #request = page, args[''] = query string
+        cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s) GROUP BY fname, lname, date", (emp_id)) #value of emp_id is from data field
+        value = cursor.fetchone()
+        name = value[0]
+        print(name)
+
+        in_time = value[1]
+        #in_time_arr = in_time.split(':')
+        if(in_time != None):
+            print(in_time)
+            in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+
+        out_time = value[2]
+        if(out_time != None):
+            out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+
+        date = value[3]
+        if(date != None):
+            match = re.search(r'\d{4}-\d{2}-\d{2}', date)
+            date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+
+        #check whether the emp id exists
+        if(name != ""):
+            #check whether the last time it is check in or checkout
+            if(in_time == "" or in_time == None):
+                in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                print(in_time)
+                
+                date = date.today.strftime("%Y-%m-%d")
+                
+                cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
+                db_conn.commit()
+                isExist = 4
+                #insert data
+            elif(in_time != None):
+                if(in_time < out_time): #if checkout then can check in
+                    #insert data
+                    in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                    cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
+                    db_conn.commit()
+                    isExist = 4
+
+                    return in_time
+                elif(in_time > out_time):  #else tell them that they have checked in
+                    #display message box
+                    isExist = 1
+                else:
+                    #display message box
+                    isExist = 2
+                
+        else:
+            #display message box
+            isExist = 3
+
+        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist) 
+
+@app.route("/addcheckout", methods=['GET'])
+def addCheckOutn():
+    cursor = db_conn.cursor()
+    name = ""
+    isExist = 0
+    msg = ""
+
+    emp_id = 0
+    attd_id = ""
+    in_time = ""
+    out_time = ""
+    attd_status = ""
+    
+
+    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = AND in_time = "
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
