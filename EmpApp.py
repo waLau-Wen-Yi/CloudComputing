@@ -286,7 +286,7 @@ def addCheckIn():
             dates = value[3]
             if(dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = datetime.strptime(match.group(), '%Y-%m-%d').date()
+                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
             else:
                 dates = date.today().strftime("%Y-%m-%d")
 
@@ -360,7 +360,7 @@ def addCheckOut():
             dates = value[3]
             if(dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
-                dates = datetime.strptime(match.group(), '%Y-%m-%d').date()
+                dates = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
 
         #check whether the emp id exists
         if(name != ""):
