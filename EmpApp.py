@@ -121,9 +121,7 @@ def GetEmpName():
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name FROM employee WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
         value = cursor.fetchall()
-        for row in value:
-            print(row[0])
-            name = row[0]
+        name = value[0]
         db_conn.commit()
         cursor.close()
    
