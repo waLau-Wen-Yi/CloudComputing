@@ -375,7 +375,7 @@ def addCheckOut():
             elif(out_time != None):
                 if(out_time < in_time): #if check-in then can check out
                     #insert data
-                    out_time = datetime.datetime.strftime(datetime.now(),"%I:%M:%S %p")
+                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                     cursor.execute(insert_sql, (out_time, emp_id))
                     db_conn.commit()
                     isExist = 14
