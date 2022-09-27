@@ -586,7 +586,7 @@ def addCheckOut():
     
 
     insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s) "
-    getInTime_sql = "SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id =SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id = %s"
+    getInTime_sql = "SELECT in_time FROM attendance WHERE emp_id = %s AND attd_id = (SELECT MAX(attd_id) FROM attendance WHERE emp_id = %s)"
 
 
     if (request.method == 'GET') :
@@ -616,8 +616,8 @@ def addCheckOut():
         #check whether the emp id exists
         if(name != ""):
             #check whether the last time it is check in or checkout
-            if(out_time == "" or out_time == None):
-                cursor.execute(getInTime_sql, (emp_id))
+            if(in_time!=None and (out_time == "" or out_time == None)):
+                cursor.execute(getInTime_sql, (emp_id, emp_id))
                 in_time = cursor.fetchone()
                 db_conn.commit()
                 out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
@@ -629,6 +629,9 @@ def addCheckOut():
             elif(out_time != None):
                 if(out_time < in_time): #if check-in then can check out
                     #insert data
+                    cursor.execute(getInTime_sql, (emp_id, emp_id))
+                    in_time = cursor.fetchone()
+                    db_conn.commit()
                     out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                     cursor.execute(insert_sql, (out_time, emp_id))
                     db_conn.commit()
