@@ -131,6 +131,7 @@ def GetEmpName():
     else:
         name = ""
     print(name)
+    cursor.commit()
     return render_template('TakeAttendance.html', emp_id=emp_id) 
 
 #@@@@@@@@@@Payroll
