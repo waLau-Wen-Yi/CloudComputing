@@ -285,6 +285,8 @@ def addCheckIn():
             if(date != None):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', date)
                 date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+            else:
+                date = datetime.today().strftime("%Y-%m-%d")
 
         #check whether the emp id exists
         if(name != ""):
@@ -292,8 +294,6 @@ def addCheckIn():
             if(in_time == "" or in_time == None):
                 in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
-                
-                date = datetime.today.strftime("%Y-%m-%d")
                 
                 cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
                 db_conn.commit()
