@@ -293,7 +293,7 @@ def addCheckIn():
                 in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
                 
-                date = date.today.strftime("%Y-%m-%d")
+                date = datetime.today.strftime("%Y-%m-%d")
                 
                 cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
                 db_conn.commit()
