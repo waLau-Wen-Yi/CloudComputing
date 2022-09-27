@@ -6,6 +6,7 @@ from config import *
 import random
 from time import gmtime, strftime
 from datetime import datetime
+from datetime import date
 import datetime
 import re
 
@@ -257,7 +258,7 @@ def addCheckIn():
     attd_id = ""
     in_time = ""
     out_time = ""
-    date = ""
+    dates = ""
     attd_status = ""
 
 
@@ -281,12 +282,12 @@ def addCheckIn():
             if(out_time != None):
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
-            date = value[3]
-            if(date != None):
-                match = re.search(r'\d{4}-\d{2}-\d{2}', date)
-                date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+            dates = value[3]
+            if(dates != None):
+                match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
+                dates = date.strptime(match.group(), '%Y-%m-%d').date()
             else:
-                date = datetime.today().strftime("%Y-%m-%d")
+                dates = date.today().strftime("%Y-%m-%d")
 
         #check whether the emp id exists
         if(name != ""):
@@ -295,7 +296,7 @@ def addCheckIn():
                 in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print(in_time)
                 
-                cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
+                cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
                 db_conn.commit()
                 isExist = 4
                 #insert data
@@ -303,7 +304,7 @@ def addCheckIn():
                 if(in_time < out_time): #if checkout then can check in
                     #insert data
                     in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                    cursor.execute(insert_sql, (in_time, "", date, "Present", emp_id))
+                    cursor.execute(insert_sql, (in_time, "", dates, "Present", emp_id))
                     db_conn.commit()
                     isExist = 4
                 elif(in_time > out_time):  #else tell them that they have checked in
@@ -331,6 +332,7 @@ def addCheckOut():
     in_time = ""
     out_time = ""
     attd_status = ""
+    dates = ""
     
 
     insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = MAX(check_in)"
@@ -339,23 +341,24 @@ def addCheckOut():
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
         value = cursor.fetchone()
-        name = value[0]
-        print(name)
+        if(value != None and len(value) > 0):
+            name = value[0]
+            print(name)
 
-        in_time = value[1]
-        #in_time_arr = in_time.split(':')
-        if(in_time != None):
-            print(in_time)
-            in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+            in_time = value[1]
+            #in_time_arr = in_time.split(':')
+            if(in_time != None):
+                print(in_time)
+                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
-        out_time = value[2]
-        if(out_time != None):
-            out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+            out_time = value[2]
+            if(out_time != None):
+                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
-        date = value[3]
-        if(date != None):
-            match = re.search(r'\d{4}-\d{2}-\d{2}', date)
-            date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+            dates = value[3]
+            if(dates != None):
+                match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
+                dates = datetime.strptime(match.group(), '%Y-%m-%d').date()
 
         #check whether the emp id exists
         if(name != ""):
