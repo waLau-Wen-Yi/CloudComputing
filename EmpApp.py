@@ -125,7 +125,7 @@ def GetEmpName():
         for row in value:
             print(row[0] + " " + row[1])
             name_arr.append(row[0] + " " + row[1])
-        cursor.commit()
+        db_conn.commit()
         cursor.close()
     if(len(name_arr) > 0):
         name = name_arr[0]
