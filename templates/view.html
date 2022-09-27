@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employee Information</title>
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Employee Summary</h1>
+
+		<body bgcolor="lightgrey">
+            <div>
+
+                <table width="30%">
+                    <tr>
+                        <td width="10%">First Name</td>
+                        <td width="20%">Last Name</td>
+                        <td width="10%">Salary</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">{{ result1 }} </td>
+                        <td width="20%">{{ result2 }} </td>
+                        <td width="10%">{{ result3 }} </td>
+                    </tr>
+
+                </table>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            Total Salary:<br> RM {{ result4 }} <br><br>
+
+            <form action="/back" autocomplete="on" method = "POST" enctype="multipart/form-data">
+                <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Back</button><br><br>
+
+            </form>
+
+		</body>
+
+	</font>
+</center>
+</html>

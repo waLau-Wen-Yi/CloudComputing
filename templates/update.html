@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employee Information</title>
+</head>
+<center>
+	<font color="black" size="4" style="font-family: avenir">
+
+		<h1 style="color: DodgerBlue">Update Employee Salary</h1>
+
+		<body bgcolor="lightgrey">
+
+			<form action="/search2" autocomplete="on" method = "POST" enctype="multipart/form-data">
+
+
+		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp2_id" autofocus size="40"><br><br>
+
+		  		OverTime Hour:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="ot" ><br><br>
+
+		  		Penalty:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="penalty"><br><br>
+
+		  		EPF percentage:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="epf"><br><br>
+
+                  <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Update</button><br><br>
+
+                Initial Salary:<br> RM {{ result }} <br><br>
+                New Salary:<br> RM {{ finalSalary }} <br><br>
+                		
+
+			</form>
+            <form action="/back" autocomplete="on" method = "POST" enctype="multipart/form-data">
+                <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Back</button><br><br>
+
+            </form>
+
+
+		</body>
+
+	</font>
+</center>
+</html>
