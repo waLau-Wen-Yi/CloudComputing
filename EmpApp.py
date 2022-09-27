@@ -353,6 +353,7 @@ def addCheckOut():
 
             out_time = value[2]
             if(out_time != None):
+                print(out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
