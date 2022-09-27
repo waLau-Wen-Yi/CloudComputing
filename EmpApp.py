@@ -120,9 +120,9 @@ def GetEmpName():
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         db_conn.cursor().execute("SELECT fname, lname FROM employee WHERE id = (%s)", (emp_id)) #value of emp_id is from data field
         value = db_conn.fetchall()
-        if(value != NULL):
-            for row in value:
-                name_arr.append(row[0] + " " + row[1])
+        for row in value:
+            print(row[0] + " " + row[1])
+            name_arr.append(row[0] + " " + row[1])
 
     return render_template('TakeAttendance.html', emp_id=name_arr[0]) 
 
