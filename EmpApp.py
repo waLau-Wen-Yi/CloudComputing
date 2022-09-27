@@ -266,7 +266,7 @@ def addCheckIn():
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
         cursor.execute("SELECT CONCAT(fname, ' ', lname) AS name, MAX(in_time), MAX(out_time), date FROM employee INNER JOIN attendance ON employee.id = attendance.emp_id WHERE id = (%s) GROUP BY fname, lname, date", (emp_id)) #value of emp_id is from data field
         value = cursor.fetchone()
-        if(len(value) > 0):
+        if(value != None and len(value) > 0):
             name = value[0]
             print(name)
 
