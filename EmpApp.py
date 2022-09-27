@@ -257,7 +257,7 @@ def addCheckIn():
     attd_status = ""
 
 
-    insert_sql = "INSERT INTO attendance VALUES (%s, %s, %s, %s)"
+    insert_sql = "INSERT INTO attendance(in_time, out_time, attd_status, emp_id) VALUES (%s, %s, %s, %s)"
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
