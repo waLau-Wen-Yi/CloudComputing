@@ -336,7 +336,9 @@ def addCheckOut():
     dates = ""
     
 
-    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s HAVING in_time = MAX(in_time) "
+    insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s) "
+    getInTime_sql = "SELECT MAX(CAST(in_time AS TIME)) FROM attendance WHERE emp_id = %s"
+
 
     if (request.method == 'GET') :
         emp_id = request.args['emp_id'] #request = page, args[''] = query string
@@ -366,9 +368,12 @@ def addCheckOut():
         if(name != ""):
             #check whether the last time it is check in or checkout
             if(out_time == "" or out_time == None):
+                cursor.execute(getInTime_sql, (emp_id))
+                in_time = cursor.fetchone()
+                db_conn.commit()
                 out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
                 print("out:",out_time)
-                cursor.execute(insert_sql, (out_time, emp_id))
+                cursor.execute(insert_sql, (out_time, emp_id, in_time))
                 db_conn.commit()
                 isExist = 14
                 #insert data
