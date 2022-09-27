@@ -124,7 +124,11 @@ def GetEmpName():
             print(row[0] + " " + row[1])
             name_arr.append(row[0] + " " + row[1])
         cursor.close()
-    return render_template('TakeAttendance.html', emp_id=name_arr[0]) 
+    if(len(name_arr) > 0):
+        name = name_arr[0]
+    else:
+        name = ""
+    return render_template('TakeAttendance.html', emp_id=emp_id) 
 
 #@@@@@@@@@@Payroll
 
