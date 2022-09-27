@@ -4,7 +4,7 @@ import os
 import boto3
 from config import *
 import random
-from time import gmtime, strftime
+from time import gmtime, strftime, time
 from datetime import datetime
 from datetime import date
 import datetime
@@ -349,12 +349,12 @@ def addCheckOut():
             #in_time_arr = in_time.split(':')
             if(in_time != None):
                 print(in_time)
-                in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
+                in_time = datetime.datetime.strftime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
             if(out_time != None):
                 print(out_time)
-                out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
+                out_time = datetime.datetime.strftime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
             if(dates != None):
@@ -365,7 +365,7 @@ def addCheckOut():
         if(name != ""):
             #check whether the last time it is check in or checkout
             if(out_time == "" or out_time == None):
-                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                out_time = datetime.datetime.strftime(datetime.now(),"%I:%M:%S %p")
                 print(in_time)
                 cursor.execute(insert_sql, (out_time, emp_id))
                 db_conn.commit()
@@ -374,7 +374,7 @@ def addCheckOut():
             elif(out_time != None):
                 if(out_time < in_time): #if checkin then can check out
                     #insert data
-                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                    out_time = datetime.datetime.strftime(datetime.now(),"%I:%M:%S %p")
                     cursor.execute(insert_sql, (out_time, emp_id))
                     db_conn.commit()
                     isExist = 14
