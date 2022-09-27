@@ -274,17 +274,17 @@ def addCheckIn():
 
             in_time = value[1]
             #in_time_arr = in_time.split(':')
-            if(in_time != None):
+            if(in_time != None and in_time != ""):
                 print(in_time)
                 in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
-            if(out_time != None):
+            if(out_time != None and in_time != ""):
                 print(out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
-            if(dates != None):
+            if(dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
                 dates = date.strptime(match.group(), '%Y-%m-%d').date()
             else:
@@ -348,17 +348,17 @@ def addCheckOut():
 
             in_time = value[1]
             #in_time_arr = in_time.split(':')
-            if(in_time != None):
+            if(in_time != None and in_time != ""):
                 print(in_time)
                 in_time = datetime.datetime.strptime(in_time, "%I:%M:%S %p")
 
             out_time = value[2]
-            if(out_time != None):
+            if(out_time != None and out_time != ""):
                 print(out_time)
                 out_time = datetime.datetime.strptime(out_time, "%I:%M:%S %p")
 
             dates = value[3]
-            if(dates != None):
+            if(dates != None and dates != ""):
                 match = re.search(r'\d{4}-\d{2}-\d{2}', dates)
                 dates = datetime.strptime(match.group(), '%Y-%m-%d').date()
 
