@@ -89,6 +89,14 @@ def attd():
 def ViewAttd():
     return render_template('ViewAttendanceLog.html')
 
+@app.route("/takeattd", methods=['POST'])
+def GoToTakeAttd():
+    return render_template('TakeAttendance.html')
+
+@app.route("/updateattd", methods=['POST'])
+def GoToUpdateAttd():
+    return render_template('UpdateAttdStatus.html')
+
 @app.route("/gencode", methods=['GET'])
 def TakeAttendance():
     emp = request.args['emp_id']
