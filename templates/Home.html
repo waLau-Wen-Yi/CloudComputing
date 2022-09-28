@@ -12,11 +12,19 @@
 
         .button-style {
             background: #e1e1e1;
-            height: 45px;
-            width: 200px;
+            height: 50px;
+            width: 400px;
             color: black;
             font-weight: 600;
             font-family: monospace;
+        }
+
+        #main-menu {
+            background: #f8a0a0;
+        }
+        
+        .text{
+            font-size: x-large;
         }
     </style>
 </head>
@@ -25,27 +33,27 @@
     <h1 style="background-color: black;text-align:center;">
         <font style="
     font-family: monospace;
-"><span style="color: #ffffff;"><span><strong><span>HR Management System</span></strong></span></span></font>
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>HR Management System</span></strong></span></span></font>
     </h1>
     <center style="width:50%;margin:0 auto">
         <div style="margin-top:50px;">
             <form action="/empmng" method="post" >
-                <button class="button-style">Employee Management</button>
+                <button class="button-style text">Employee Management</button>
             </form>
         </div>
         <div style="margin-top:50px;">
             <form action="/attd" method="post" >
-                <button class="button-style">Attendance</button>
+                <button class="button-style text">Attendance</button>
             </form>
         </div>    
         <div style="margin-top:50px;">
             <form action="/salary" method="post" >
-                <button class="button-style">Payroll</button>
+                <button class="button-style text">Payroll</button>
             </form>
         </div>
         <div style="margin-top:50px;">
             <form action="/prftrk" method="post" >
-                <button class="button-style">Performance Tracker</button>
+                <button class="button-style text">Performance Tracker</button>
             </form>
         </div>
     </center>
