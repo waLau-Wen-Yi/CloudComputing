@@ -873,7 +873,7 @@ def ViewAttdLog():
     db_conn.commit()
     cursor.close()
 
-    return render_template('ViewAttendanceLog.html', result=result,imgurl=result[0][0],id=id[0][1],fname=result[0][2], lname=result[0][3], position=result[0][4], date=result[0][5], in_time = result[0][6], out_time=result[0][7],attd_status=result[0][8])
+    return render_template('ViewAttendanceLog.html', result=result,imgurl=result[0][0],id=result[0][1],fname=result[0][2], lname=result[0][3], position=result[0][4], date=result[0][5], in_time = result[0][6], out_time=result[0][7],attd_status=result[0][8])
 
 # @@@@@@@@@@Payroll
 
