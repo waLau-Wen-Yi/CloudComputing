@@ -53,17 +53,16 @@ def update():
 @app.route("/view", methods=['GET', 'POST'])
 def view():
     cursor = db_conn.cursor()
-    string = "Select fname from employee"
+    string = "Select fname, lname, salary from employee"
     cursor.execute(string)
     result1 = cursor.fetchall()
-
-    string2 = "Select lname from employee"
-    cursor.execute(string2)
-    result2 = cursor.fetchall()
-
-    string3 = "Select salary from employee"
-    cursor.execute(string3)
-    result3 = cursor.fetchall()
+    
+    arr = []
+    for col in range(len(result)):
+        arr.append([])
+        arr[col].append(col + 1)
+        arr[col].append(result[col][0] + "" + result[col][1])
+        arr[col].append(result[col][2])
 
     string4 = "Select Sum(salary) from employee"
     cursor.execute(string4)
@@ -72,7 +71,7 @@ def view():
     db_conn.commit()
     cursor.close()
 
-    return render_template('view.html', result1=result1, result2=result2, result3=result3, result4=result4[0])
+    return render_template('view.html', result4=result4[0], content=arr)
 
 
 @app.route("/search2", methods=['POST'])
@@ -771,11 +770,10 @@ def applyLeave():
 
     return render_template('UpdateAttdStatus.html', isExist=isExist) 
 
-@app.route("/viewattdlog", methods=['GET', 'POST'])
+@app.route("/viewattdlog", methods=['GET'])
 def ViewAttdLog():
     flagDate = 0
     flagTime = 0
-    flagStartWhere = 0
     cursor = db_conn.cursor()
     name = ""
     isExist = 0
@@ -789,7 +787,7 @@ def ViewAttdLog():
     values = []
 
     #insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
-    getInTime_sql = "SELECT image_url, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id "  
+    getInTime_sql = "SELECT image_url, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id WHERE "  
 
     if (request.method == 'GET'):
         # request = page, args[''] = query string
@@ -800,64 +798,43 @@ def ViewAttdLog():
         outtime = request.args['outtime']
 
         if(emp_id != ""):
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             getInTime_sql += "employee.emp_id = %s OR "
             values.append(emp_id)
 
         if(fstart != ""): #have start
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             fstart = datetime.datetime.strptime(fstart,"%Y-%m-%d")
             getInTime_sql += "(STR_TO_DATE(attendance.date, '%Y-%m-%d') >= %s OR " 
             flagDate+=1
             values.append(fstart)
 
         if(flagDate > 0 and fend != ""): #have start have end
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             fend = datetime.datetime.strptime(fend,"%Y-%m-%d")
             getInTime_sql = getInTime_sql.rstrip("OR ")
             getInTime_sql += "AND STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             values.append(fend)
 
         elif(fend != ""): #no start have end
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             fend = datetime.datetime.strptime(fend,"%Y-%m-%d")
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             values.append(fend)
 
         if(intime != ""): #have start
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             intime = datetime.datetime.strptime(intime, "%I:%M:%S %p")
             getInTime_sql += "(in_time >= %s AND in_time <= %s) OR "
             flagTime +=1
             values.append(intime)
 
         if(flagTime >0 and outtime != ""): #have start have end
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             getInTime_sql = getInTime_sql.rstrip("OR ")
             getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
             values.append(outtime)
 
         elif(outtime!=""): #no start have end
-            if(flagStartWhere == 0):
-                getInTime_sql += "WHERE "
-                flagStartWhere +=1
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             values.append(outtime)
-
+            
         cursor.execute(getInTime_sql, tuple(values))
         
 
