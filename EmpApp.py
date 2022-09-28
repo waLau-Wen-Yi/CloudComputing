@@ -865,12 +865,12 @@ def ViewAttdLog():
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             values.append(outtime)
             
-        cursor.execute(getInTime_sql, tuple(values))
-        result = cursor.fetchall()
-        db_conn.commit()
-        cursor.close()
+    cursor.execute(getInTime_sql, tuple(values))
+    result = cursor.fetchall()
+    db_conn.commit()
+    cursor.close()
 
-        return render_template('TakeAttendance.html', result=result)
+    return render_template('TakeAttendance.html', result=result)
 
 # @@@@@@@@@@Payroll
 
