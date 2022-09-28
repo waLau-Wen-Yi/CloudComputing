@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html>
 <title>Performance Tracker</title>
-
 <style>
-		
     body {
-            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
-            margin-top: 0px;
-            background-position: center;
-            background-size: cover;
-        }
-    </style>
+        background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+        margin-top: 0px;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .button-style {
+        background: #e1e1e1;
+        height: 50px;
+        width: 400px;
+        color: black;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    #main-menu {
+        background: #f8a0a0;
+    }
+    
+    .text{
+        font-size: x-large;
+    }
+</style>
     <body>
 <center>
-    <h1 style="text-align:center">
-        <font color="black" size="5" style="font-family: avenir">
-            <font color="black" size="5" style="font-family: avenir">
-                <font color="black" size="5" style="font-family: avenir">
-                    <font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span
-                                style="font-size:26px;"><strong><span style="font-family: avenir;">Performance
-                                        Tracker</span></strong></span></span></font>
-                </font>
-            </font>
-        </font>
+    <h1 style="background-color: black;text-align:center;">
+        <font style="
+    font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Performance Tracker</span></strong></span></span></font>
     </h1>
 
     <hr />
     <form action="/edtempdtl" id="emp_id_form" method="get">
         <p>Employee ID: &nbsp; <input autofocus="" name="emp_id" size="40"
-                style="width:100px;height:30px;font-size:14pt;" type="text" /> <strong><button formaction=""
-                    style="background: grey; height: 40px; width: 100px; color:white; font:oblique;"
+                style="width:100px;height:30px;font-size:14pt;" type="text" /> <strong><button
+                    class="button-style"
                     type="submit">SEARCH</button> </strong></p>
     </form>
 
@@ -102,13 +111,13 @@
     <form action="/prftrkedt" method="get">
         <input name="emp_id" size="40" value="{{ id }}" style="width:100px;height:30px;font-size:14pt;"
             type="hidden" />
-        <button style="background:grey; height:45px; width:200px; color:white; font:oblique" type="submit">EDIT</button>
+        <button class="button-style" type="submit">EDIT</button>
     </form>
     </p>
 
     <form action="/" method="post">
         <font color="black" size="5" style="font-family: avenir">
-            <button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">MAIN
+            <button class="button-style" type="submit">MAIN
                 MENU</button>
         </font>
     </form>
