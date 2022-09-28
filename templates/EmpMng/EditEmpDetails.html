@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html>
-	<style>
-		
-		body {
-				background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
-				margin-top: 0px;
-				background-position: center;
-				background-size: cover;
-			}
-		</style>
+<style>
+	body {
+		background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+		margin-top: 0px;
+		background-position: center;
+		background-size: cover;
+	}
+
+	.button-style {
+		background: #e1e1e1;
+		height: 45px;
+		width: 250px;
+		color: black;
+		font-weight: 600;
+		font-family: monospace;
+	}
+
+	#main-menu {
+		background: #f8a0a0;
+	}
+
+	.text {
+		font-size: x-large;
+	}
+</style>
 
 <head>
 	<title>Edit Employee Details</title>
 </head>
+
 <body>
-<center>
-	<font color="black" size="5" style="font-family: avenir">
-		<h1 style="text-align:center"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span
-							style="font-family: avenir;">Employee
-							Management: Edit Employee Details</span></strong></span></span>
+	<center>
+		<h1 style="background-color: black;text-align:center;">
+			<font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Employee
+								Management: Edit Employee Details</span></strong></span></span></font>
 		</h1>
 
 		<hr />
 		<form action="/edtempdtl" id="emp_id_form" method="get">
-			<p>Employee ID:
-				&nbsp;
-				<input autofocus="" name="emp_id" size="40" style="width:100px;height:30px;font-size:14pt;"
-					type="text" />
-				<strong>
-					<button 
-						style="background: grey; height: 40px; width: 100px; color:white; font:oblique;" type="submit">
-						SEARCH
-					</button>
-				</strong>
-			</p>
+			<p class="text" style="font-family: monospace;">Employee ID: &nbsp; <input autofocus="" name="emp_id"
+					size="30" class="button-style text" style="background: white;" type="text" /> <strong><button
+						class="button-style text" type="submit">SEARCH</button> </strong></p>
 		</form>
 
 		<hr />
@@ -159,35 +169,24 @@
 			</table>
 
 			<p>
+				<button formaction="/" class="button-style text" id="main-menu" type="submit">
+					MAIN MENU
+				</button>
+				<button formaction="/empmng" class="button-style text" type="submit">
+					BACK</button>
+
 				<input name="emp_id" size="40" style="width:99%;height:30px;font-size:14pt;" value="{{ id }}"
-								type="hidden" />
-								<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+					type="hidden" />
+				<button class="button-style text" type="submit">
 					CONFIRM</button>
 			</p>
 		</form>
 
 
-		<p>
-
-		<form action="/" method="post">
-
-			<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
-				MAIN MENU
-			</button>
-		</form>
-		</p>
-
-		<p>
-		<form action="/empmng" id="emp_id_form" method="get">
-			<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
-				BACK</button>
-		</form>
-		</p>
 
 
 
-	</font>
-</center>
-	</body>	
+	</center>
+</body>
 
 </html>
