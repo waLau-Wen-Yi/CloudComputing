@@ -3,22 +3,40 @@
 
 <head>
 	<title>Take Attendance Page</title>
-	<style>
-		.button-style {
-			background: grey;
-			height: 45px;
-			width: 200px;
-			color: white;
-			font: oblique;
-		}
-	</style>
+    <style>
+        body {
+            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+            margin-top: 0px;
+            background-position: center;
+            background-size: cover;
+        }
+    
+        .button-style {
+            background: #e1e1e1;
+            height: 45px;
+            width: 250px;
+            color: black;
+            font-weight: 600;
+            font-family: monospace;
+        }
+    
+        #main-menu {
+            background: #f8a0a0;
+        }
+    
+        .text {
+            font-size: x-large;
+        }
+    </style>
 </head>
 
 <body>
 	<center style="margin:0 auto;margin-top:10%;">
-		<font color="black" size="4" style="font-family: avenir">
-
-			<h1 style="color: DodgerBlue">Take Attendance Page</h1>
+		<h1 style="background-color: black;text-align:center;">
+			<font style="
+	font-family: monospace;
+	"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Take Attendance Page</span></strong></span></span></font>
+		</h1>
 
 			<body bgcolor="lightgrey">
 
@@ -38,15 +56,15 @@
 						Employee Information</button><br /><br /> -->
 
 					<button formaction="/addcheckin" type="submit" name="checkin"
-						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Check
+					class="button-style text">Check
 						In</button><br /><br />
 
 					<button formaction="/addcheckout" type="submit" text="Check Out" name="checkout"
-						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Check
+					class="button-style text">Check
 						Out</button><br />
 
 					<button formaction="/attd" type="submit" text="Check Out" 
-						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Go Back</button>
+					class="button-style text" id="main-menu">Go Back</button>
 
 				</form>
 
@@ -115,6 +133,5 @@
 				display_c7()
 				displayErrorMsg()
 			</script>
-		</font>
 	</center>
 </body>
