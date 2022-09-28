@@ -867,7 +867,6 @@ def ViewAttdLog():
             values.append(outtime)
             
     cursor.execute(getInTime_sql, tuple(values))
-    print(getInTime_sql)
     result = cursor.fetchall()
     db_conn.commit()
     cursor.close()
