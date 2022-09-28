@@ -12,15 +12,19 @@
 
         .button-style {
             background: #e1e1e1;
-            height: 45px;
-            width: 200px;
+            height: 50px;
+            width: 400px;
             color: black;
             font-weight: 600;
             font-family: monospace;
         }
 
-        #main-menu{
+        #main-menu {
             background: #f8a0a0;
+        }
+        
+        .text{
+            font-size: x-large;
         }
     </style>
 </head>
@@ -31,31 +35,31 @@
 		<h1 style="background-color: black;text-align:center;">
             <font style="
         font-family: monospace;
-    "><span style="color: #ffffff;"><span><strong><span>Salary Management</span></strong></span></span></font>
+    "><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Salary Management</span></strong></span></span></font>
         </h1>
 
 		<body bgcolor="lightgrey">
 
 
                 <form action="/examine" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                    <button class="button-style" type="submit">Examine employee salary</button><br><br>
+                    <button class="button-style text" type="submit">Examine employee salary</button><br><br>
 
                 </form>
                 
                 <form action="/update" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                    <button class="button-style" type="submit">Update employee salary</button><br><br>
+                    <button class="button-style text" type="submit">Update employee salary</button><br><br>
 
                 </form>
                 
                 <form action="/view" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                    <button class="button-style" type="submit">View all employee's payroll</button><br><br>
+                    <button class="button-style text" type="submit">View all employee's payroll</button><br><br>
 
                 </form>
 			
         
                 <div style="margin-top:50px;">
                     <form action="/" method="post">
-                    <button class="button-style" id="main-menu">MAIN MENU</button>
+                    <button class="button-style text" id="main-menu">MAIN MENU</button>
                     </form>
                 </div>
                 <h2>{{ name }}</h2><br>
