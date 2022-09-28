@@ -796,8 +796,6 @@ def ViewAttdLog():
     #insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
     getInTime_sql = "SELECT imgurl, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id "  
 
-    if(request.method=='POST'):
-
     if (request.method == 'GET'):
         # request = page, args[''] = query string
         emp_id = request.args['emp_id']
