@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+        margin-top: 0px;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .button-style {
+        background: #e1e1e1;
+        height: 45px;
+        width: 250px;
+        color: black;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    #main-menu {
+        background: #f8a0a0;
+    }
+
+    .text {
+        font-size: x-large;
+    }
+</style>
+<title>Show Employee Details</title>
+
+<body>
+    <center>
+        <h1 style="background-color: black;text-align:center;">
+			<font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>About
+    the website</span></strong></span></span></font>
+		</h1>
+
+        <p>HR Management System is a Flask web application which can manage the employees by reviewing their details,
+            generating their salary based on the&nbsp;</p>
+
+        <p>This project is made by:</p>
+
+        <p>&nbsp;</p>
+
+        <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <tbody>
+                <tr>
+                    <td rowspan="3">{{ img1 }}</td>
+                    <td>{{ name1 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ position1 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ quote1 }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>&nbsp;</p>
+
+        <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <tbody>
+                <tr>
+                    <td rowspan="3">{{ img2 }}</td>
+                    <td>{{ name2 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ position2 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ quote2 }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>&nbsp;</p>
+
+        <table border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <tbody>
+                <tr>
+                    <td rowspan="3">{{ img3 }}</td>
+                    <td>{{ name3 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ position3 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ quote3 }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </center>
+</body>
+
+</html>
