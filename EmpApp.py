@@ -785,6 +785,7 @@ def ViewAttdLog():
     fend = ""
     intime = ""
     outtime = ""
+    values = []
 
     #insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
     getInTime_sql = "SELECT image_url, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id WHERE "  
@@ -799,63 +800,44 @@ def ViewAttdLog():
 
         if(emp_id != ""):
             getInTime_sql += "employee.emp_id = %s OR "
+            values.append(emp_id)
 
         if(fstart != ""): #have start
+            fstart = datetime.datetime.strptime(fstart,"%Y-%m-%d")
             getInTime_sql += "(STR_TO_DATE(attendance.date, '%Y-%m-%d') >= %s OR " 
             flagDate+=1
+            values.append(fstart)
 
         if(flagDate > 0 and fend != ""): #have start have end
+            fend = datetime.datetime.strptime(fend,"%Y-%m-%d")
             getInTime_sql = getInTime_sql.rstrip("OR ")
             getInTime_sql += "AND STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+            values.append(fend)
 
-        else: #no start have end
+        elif(fend != ""): #no start have end
+            fend = datetime.datetime.strptime(fend,"%Y-%m-%d")
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+            values.append(fend)
 
         if(intime != ""): #have start
+            intime = datetime.datetime.strptime(intime, "%I:%M:%S %p")
             getInTime_sql += "(in_time >= %s AND in_time <= %s) OR "
             flagTime +=1
+            values.append(intime)
 
         if(flagTime >0 and outtime != ""): #have start have end
+            outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             getInTime_sql = getInTime_sql.rstrip("OR ")
             getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
+            values.append(outtime)
 
-        else: #no start have end
+        elif(outtime!=""): #no start have end
+            outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
-
-        # check whether the emp id exists
-        if (name != ""):
-            # check whether the last time it is check in or checkout
-            if (in_time != None and (out_time == "" or out_time == None)):
-                cursor.execute(getInTime_sql, (emp_id, emp_id))
-                in_time = cursor.fetchone()[0]
-                db_conn.commit()
-                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                print("out:", out_time)
-                cursor.execute(insert_sql, (out_time, emp_id, in_time))
-                db_conn.commit()
-                isExist = 14
-                # insert data
-            elif (out_time != None):
-                if (out_time < in_time):  # if check-in then can check out
-                    # insert data
-                    cursor.execute(getInTime_sql, (emp_id, emp_id))
-                    in_time = cursor.fetchone()[0]
-                    db_conn.commit()
-                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-                    cursor.execute(insert_sql, (out_time, emp_id, in_time))
-                    db_conn.commit()
-                    isExist = 14
-
-                elif (out_time > in_time):  # else tell them that they have checked out
-                    # display message box
-                    isExist = 11
-                else:
-                    # display message box
-                    isExist = 2
-
-        else:
-            # display message box
-            isExist = 3
+            values.append(outtime)
+            
+        cursor.execute(getInTime_sql, tuple(values))
+        
 
         return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist, result=result)
 
