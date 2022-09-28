@@ -703,7 +703,7 @@ def addCheckOut():
 def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
-    insert_sql = "INSERT INTO (in_time, out_time, date, attd_status, leaveurl, emp_id) VALUES(%s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO attendance(in_time, out_time, date, attd_status, leaveurl, emp_id) VALUES(%s, %s, %s, %s, %s, %s)"
     in_time = ""
     out_time = ""
     dates = ""
