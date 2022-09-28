@@ -771,7 +771,7 @@ def applyLeave():
 
     return render_template('UpdateAttdStatus.html', isExist=isExist) 
 
-@app.route("/viewattdlog", methods=['GET'])
+@app.route("/viewattdlog", methods=['GET', 'POST'])
 def ViewAttdLog():
     flagDate = 0
     flagTime = 0
