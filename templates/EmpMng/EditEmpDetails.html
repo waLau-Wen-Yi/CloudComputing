@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
+	<style>
+		
+		body {
+				background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+				margin-top: 0px;
+				background-position: center;
+				background-size: cover;
+			}
+		</style>
 
 <head>
 	<title>Edit Employee Details</title>
 </head>
+<body>
 <center>
 	<font color="black" size="5" style="font-family: avenir">
 		<h1 style="text-align:center"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span
@@ -18,7 +28,7 @@
 				<input autofocus="" name="emp_id" size="40" style="width:100px;height:30px;font-size:14pt;"
 					type="text" />
 				<strong>
-					<button formaction=""
+					<button 
 						style="background: grey; height: 40px; width: 100px; color:white; font:oblique;" type="submit">
 						SEARCH
 					</button>
@@ -27,131 +37,141 @@
 		</form>
 
 		<hr />
-		<table border="1" cellpadding="1" cellspacing="1" style="width:100%;">
-			<tbody>
-				<tr>
-					<td style="width: 15%; text-align: right;">Profile picture URL:
-					</td>
-					<td colspan="3" style="width: 85%;">
-						<input autofocus="" name="emp_image_url" value="{{ imgurl }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 15%; text-align: right;">
-						First name:
-					</td>
-					<td style="width: 35%;">
-						<input autofocus="" name="emp_fname" value="{{ fname }}" size="40"
-							style="width:98%;height:30px;font-size:14pt;" type="text" />
-					</td>
-					<td style="text-align: right; width: 15%;">
-						Last name:
-					</td>
-					<td style="width: 35%;">
-						<input autofocus="" name="emp_lname" value="{{ lname }}" size="40"
-							style="width:98%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Position:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_position" value="{{ position }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Employee ID:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_id" value="{{ id }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Handphone number:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_phone" value="{{ phone }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Email:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_email" value="{{ email }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Join date:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_jdate" value="{{ jdate }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Salary:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_salary" value="{{ salary }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Accommodation address:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_location" value="{{ location }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Interest:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_interest" value="{{ interest}}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Date of birth:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_dob" value="{{ dob }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right; width: 15%;">
-						Primary skills:
-					</td>
-					<td colspan="3" rowspan="1" style="width: 85%;">
-						<input autofocus="" name="emp_skills" value="{{ skills }}" size="40"
-							style="width:99%;height:30px;font-size:14pt;" type="text" />
-					</td>
-				</tr>
-			</tbody>
-		</table>
+
+		<form action="/edtemp" method="post">
+			<table border="1" cellpadding="1" cellspacing="1" style="width:100%;">
+				<tbody>
+					<tr>
+						<td style="width: 15%; text-align: right;">Profile picture URL:
+						</td>
+						<td colspan="3" style="width: 85%;">
+							<input autofocus="" name="emp_image_url" value="{{ imgurl }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 15%; text-align: right;">
+							First name:
+						</td>
+						<td style="width: 35%;">
+							<input name="emp_fname" value="{{ fname }}" size="40"
+								style="width:98%;height:30px;font-size:14pt;" type="text" />
+						</td>
+						<td style="text-align: right; width: 15%;">
+							Last name:
+						</td>
+						<td style="width: 35%;">
+							<input name="emp_lname" value="{{ lname }}" size="40"
+								style="width:98%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Position:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_position" value="{{ position }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Employee ID:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<font style="font-family:avenir"><strong>{{ id
+									}}</strong></font>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Handphone number:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_phone" value="{{ phone }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Email:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_email" value="{{ email }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Join date:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_jdate" value="{{ jdate }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Salary:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_salary" value="{{ salary }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Accommodation address:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_location" value="{{ location }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Interest:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_interest" value="{{ interest }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Date of birth:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_dob" value="{{ dob }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 15%;">
+							Primary skills:
+						</td>
+						<td colspan="3" rowspan="1" style="width: 85%;">
+							<input name="emp_skills" value="{{ skills }}" size="40"
+								style="width:99%;height:30px;font-size:14pt;" type="text" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>
+				<input name="emp_id" size="40" style="width:99%;height:30px;font-size:14pt;" value="{{ id }}"
+								type="hidden" />
+								<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+					CONFIRM</button>
+			</p>
+		</form>
+
 
 		<p>
 
 		<form action="/" method="post">
 
-			<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;"
-				type="submit">
+			<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
 				MAIN MENU
 			</button>
 		</form>
@@ -164,16 +184,10 @@
 		</form>
 		</p>
 
-		<p>
-		<form action="/edtemp" method="post">
-
-			<button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
-				CONFIRM</button>
-		</form>
-		</p>
 
 
 	</font>
 </center>
+	</body>	
 
 </html>
