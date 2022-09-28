@@ -865,7 +865,9 @@ def ViewAttdLog():
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) "
             values.append(outtime)
-            
+
+    if(getInTime_sql==""):
+             getInTime_sql = "SELECT imgurl, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id "
     cursor.execute(getInTime_sql, tuple(values))
     result = cursor.fetchall()
     db_conn.commit()
