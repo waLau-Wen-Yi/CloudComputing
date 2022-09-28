@@ -4,118 +4,142 @@
 <head>
     <title>Apply Leave Page</title>
     <style>
+        body {
+            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+            margin-top: 0px;
+            background-position: center;
+            background-size: cover;
+        }
+
         .button-style {
-            background: grey;
+            background: #e1e1e1;
             height: 45px;
-            width: 200px;
-            color: white;
-            font: oblique;
+            width: 250px;
+            color: black;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        #main-menu {
+            background: #f8a0a0;
+        }
+
+        .text {
+            font-size: x-large;
         }
     </style>
 </head>
 
 <body>
+    <h1 style="background-color: black;text-align:center;">
+        <font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Apply Leave
+                            Page</span></strong></span></span></font>
+    </h1>
+
+
     <center style="margin:0 auto;margin-top:10%;">
-        <font color="black" size="4" style="font-family: avenir">
 
-            <h1 style="color: DodgerBlue">Apply Leave Page</h1>
+        <body>
 
-            <body bgcolor="lightgrey">
+            <form action="/applyleave" autocomplete="on" method="POST" enctype="multipart/form-data">
 
-                <form action="/applyleave" autocomplete="on" method="POST" enctype="multipart/form-data">
-
-                    Employee Id: <br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
-                        name="emp_id"><br><br>
-                    <!-- 
+                Employee Id: <br> <input style="height:25px;font-size:14pt;color:grey;" type="text"
+                    name="emp_id"><br><br>
+                <!-- 
 					EmployeeName: <br>
 					<p>{{name}}</p><br> -->
 
-                    Current Time: <br>
-                    <div id="time"></div><br />
+                Current Time: <br>
+                <div id="time"></div><br />
 
-                    <!-- <button type="submit"
+                <!-- <button type="submit"
 						style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Get
 						Employee Information</button><br /><br /> -->
 
-                    Evidence File: <input type="file" name="leave_file" style="height:25px;font-size:14pt;color:grey;">
-                    <br><br>
+                Evidence File: <input type="file" name="leave_file" style="height:25px;font-size:14pt;color:grey;">
+                <br><br>
 
-                    <button formaction="/applyleave" type="submit" 
-                        style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Apply
-                    </button><br /><br />
+                <button formaction="/applyleave" type="submit"
+                    style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Apply
+                </button><br /><br />
 
-                    <button formaction="/attd" type="submit" 
-                        style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Go
-                        Back</button>
+                <button formaction="/attd" type="submit"
+                    style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Go
+                    Back</button>
 
-                </form>
-                <script>
-                    function display_ct7() {
-                        var x = new Date()
-                        var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
-                        hours = x.getHours() % 12;
-                        hours = hours ? hours : 12;
-                        hours = hours.toString().length == 1 ? 0 + hours.toString() : hours;
+            </form>
 
-                        var minutes = x.getMinutes().toString()
-                        minutes = minutes.length == 1 ? 0 + minutes : minutes;
+        </body>
 
-                        var seconds = x.getSeconds().toString()
-                        seconds = seconds.length == 1 ? 0 + seconds : seconds;
+    </center>
+    <script>
+        function display_ct7() {
+            var x = new Date()
+            var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
+            hours = x.getHours() % 12;
+            hours = hours ? hours : 12;
+            hours = hours.toString().length == 1 ? 0 + hours.toString() : hours;
 
-                        var month = (x.getMonth() + 1).toString();
-                        month = month.length == 1 ? 0 + month : month;
+            var minutes = x.getMinutes().toString()
+            minutes = minutes.length == 1 ? 0 + minutes : minutes;
 
-                        var dt = x.getDate().toString();
-                        dt = dt.length == 1 ? 0 + dt : dt;
+            var seconds = x.getSeconds().toString()
+            seconds = seconds.length == 1 ? 0 + seconds : seconds;
 
-                        var x1 = month + "/" + dt + "/" + x.getFullYear();
-                        x1 = x1 + " - " + hours + ":" + minutes + ":" + seconds + " " + ampm;
-                        document.getElementById('time').innerHTML = x1;
-                        display_c7();
-                    }
-                    function display_c7() {
-                        var refresh = 1000; // Refresh rate in milli seconds
-                        mytime = setTimeout('display_ct7()', refresh)
-                    }
-                    //@@Error msg
-                    function displayErrorMsg() {
-                        isExist = '{{isExist}}';
-                        var msg = "";
-                        if(isExist == 21){
-                            msg = "File uploaded successfully"
-                            alert(msg);
-                        }
-                        else if (isExist == 1) {
-                            msg = "You have already checked in."
-                            alert(msg);
-                        }
-                        else if (isExist == 2) {
-                            msg = "Please try again."
-                            alert(msg);
-                        }
-                        else if (isExist == 3) {
-                            msg = "Incorrect employee id. Please try again."
-                            alert(msg);
-                        }
-                        else if (isExist == 4) {
-                            msg = "Check in successfully. "
-                            alert(msg);
-                        }
-                        else if (isExist == 11) {
-                            msg = "You havent checked in."
-                            alert(msg);
-                        }
-                        else if (isExist == 14) {
-                            msg = "Check out successfully. "
-                            alert(msg);
-                        }
-                    }
+            var month = (x.getMonth() + 1).toString();
+            month = month.length == 1 ? 0 + month : month;
 
-                    //@@@Method call 
-                    display_c7()
-                    displayErrorMsg()
-                </script>
-            </body>
+            var dt = x.getDate().toString();
+            dt = dt.length == 1 ? 0 + dt : dt;
+
+            var x1 = month + "/" + dt + "/" + x.getFullYear();
+            x1 = x1 + " - " + hours + ":" + minutes + ":" + seconds + " " + ampm;
+            document.getElementById('time').innerHTML = x1;
+            display_c7();
+        }
+        function display_c7() {
+            var refresh = 1000; // Refresh rate in milli seconds
+            mytime = setTimeout('display_ct7()', refresh)
+        }
+        //@@Error msg
+        function displayErrorMsg() {
+            isExist = '{{isExist}}';
+            var msg = "";
+            if (isExist == 21) {
+                msg = "File uploaded successfully"
+                alert(msg);
+            }
+            else if (isExist == 1) {
+                msg = "You have already checked in."
+                alert(msg);
+            }
+            else if (isExist == 2) {
+                msg = "Please try again."
+                alert(msg);
+            }
+            else if (isExist == 3) {
+                msg = "Incorrect employee id. Please try again."
+                alert(msg);
+            }
+            else if (isExist == 4) {
+                msg = "Check in successfully. "
+                alert(msg);
+            }
+            else if (isExist == 11) {
+                msg = "You havent checked in."
+                alert(msg);
+            }
+            else if (isExist == 14) {
+                msg = "Check out successfully. "
+                alert(msg);
+            }
+        }
+
+        //@@@Method call 
+        display_c7()
+        displayErrorMsg()
+    </script>
 
 </html>
