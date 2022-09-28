@@ -821,11 +821,13 @@ def ViewAttdLog():
 
         if(flagDate > 0 and fend != ""): #have start have end
             if(flagWhere == 0):
-                getInTime_sql += "WHERE "
+                getInTime_sql += "WHERE STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
                 flagWhere += 1
+            else:
+                getInTime_sql = getInTime_sql.rstrip("OR ")
+                getInTime_sql += "AND STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             fend = datetime.datetime.strptime(fend,"%Y-%m-%d")
-            getInTime_sql = getInTime_sql.rstrip("OR ")
-            getInTime_sql += "AND STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+            
             values.append(fend)
 
         elif(fend != ""): #no start have end
@@ -849,9 +851,10 @@ def ViewAttdLog():
             if(flagWhere == 0):
                 getInTime_sql += "WHERE "
                 flagWhere += 1
+            else:
+                getInTime_sql = getInTime_sql.rstrip("OR ")
+                getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
-            getInTime_sql = getInTime_sql.rstrip("OR ")
-            getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
             values.append(outtime)
 
         elif(outtime!=""): #no start have end
