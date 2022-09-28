@@ -101,7 +101,7 @@ def search2():
     cursor.execute(updateSql, (money, id))
 
     selectSql2 = "Select salary From employee Where id = %s"
-    id = (emp_id)
+    id = (id)
     cursor.execute(selectSql2, id)
     finalSalary = cursor.fetchone()
     db_conn.commit()
@@ -116,7 +116,7 @@ def search():
 
     cursor = db_conn.cursor()
     selectSql = "Select salary From employee Where id = %s"
-    id = (emp_id)
+    id = (id)
     cursor.execute(selectSql, id)
     result2 = cursor.fetchone()
     db_conn.commit()
