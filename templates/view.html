@@ -60,13 +60,17 @@ font-family: monospace;
     <body onload="createList({{content}})">
         <div>
 
-            <table style="background-color: lightgrey; width: 50%;">
-                <tr>
-                    <th>Name</th>
-                    <th>Salary</th>
-                </tr>
-                <tbody id="contents">
-                </tbody>
+            <table width="30%">
+                    <tr>
+                        <td width="10%">First Name</td>
+                        <td width="20%">Last Name</td>
+                        <td width="10%">Salary</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">{{ result1 }} </td>
+                        <td width="20%">{{ result2 }} </td>
+                        <td width="10%">{{ result3 }} </td>
+                    </tr>
 
             </table>
         </div>
