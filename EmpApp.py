@@ -505,7 +505,7 @@ def ViewAttd():
     return render_template('ViewAttendanceLog.html')
 
 
-@app.route("/takeattd", methods=['POST'])
+@app.route("/takeattd", methods=['GET', 'POST'])
 def GoToTakeAttd():
     return render_template('TakeAttendance.html')
 
