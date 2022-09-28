@@ -84,7 +84,7 @@ def search2():
     cursor = db_conn.cursor()
 
     selectSql = "Select salary From employee Where id = %s"
-    id = (emp_id)
+    id = (id)
     cursor.execute(selectSql, id)
     result1 = cursor.fetchone()
 
