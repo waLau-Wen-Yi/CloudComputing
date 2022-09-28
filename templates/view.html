@@ -26,6 +26,27 @@
     }
 </style>
 
+<script>
+    function createList(tableData){
+        var count = 0;
+        var tableBody = document.getElementById("contents");
+        
+        tableData.forEach(function (rowData){
+            var cell = document.createElement('tr');
+            
+            rowData.forEach(function (cellData){
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(cellData));
+                row.appendChild(cell);
+            });
+            
+            tableBody.appendChild(row);
+            count++;
+        })
+        document.getElementById("countEmp").innerHTML
+    }
+</script>
+    
 <head>
     <title>Add Employee Information</title>
 </head>
@@ -37,20 +58,17 @@ font-family: monospace;
                             Summary</span></strong></span></span></font>
     </h1>
 
-    <body>
+    <body onload="createList({{content}})">
         <div>
 
-            <table width="30%" style="background-color: lightgrey;">
+            <table style="background-color: lightgrey;">
                 <tr>
-                    <td width="10%">First Name</td>
-                    <td width="20%">Last Name</td>
-                    <td width="10%">Salary</td>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
                 </tr>
-                <tr>
-                    <td width="10%">{{ result1 }} </td>
-                    <td width="20%">{{ result2 }} </td>
-                    <td width="10%">{{ result3 }} </td>
-                </tr>
+                <tbody id="contents">
+                </tbody>
 
             </table>
         </div>
