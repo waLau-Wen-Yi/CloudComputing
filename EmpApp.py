@@ -704,7 +704,7 @@ def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
 
-    if flask.request.method == "GET":
+    if request.method == "GET":
         emp_id = request.args['emp_id']
         emp_image_file = request.files['leave_file']
 
