@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, render_template, request
 from pymysql import connections
 import os
@@ -58,11 +59,11 @@ def view():
     result1 = cursor.fetchall()
     
     arr = []
-    for col in range(len(result)):
+    for col in range(len(result1)):
         arr.append([])
         arr[col].append(col + 1)
-        arr[col].append(result[col][0] + "" + result[col][1])
-        arr[col].append(result[col][2])
+        arr[col].append(result1[col][0] + "" + result1[col][1])
+        arr[col].append(result1[col][2])
 
     string4 = "Select Sum(salary) from employee"
     cursor.execute(string4)
@@ -155,6 +156,10 @@ def about():
     return render_template('www.intellipaat.com')
 
 # ------------------------------------------wen yi------------------------------------------------
+#@@@@@@@@@@About Us Page
+@app.route('/abtus', methods=['GET', 'POST'])
+def AbtUs():
+    return render_template('/AboutUs.html')
 
 #@@@@@@@@@@Employee Management
 @app.route("/empmng", methods=['GET', 'POST'])

@@ -27,22 +27,22 @@
 </style>
 
 <script>
-    function createList(tableData){
+    function createEmployeeList(tableData) {
         var count = 0;
         var tableBody = document.getElementById("contents");
-        
-        tableData.forEach(function (rowData){
-            var cell = document.createElement('tr');
-            
-            rowData.forEach(function (cellData){
+
+        tableData.forEach(function (rowData) {
+            var row = document.createElement('tr');
+
+            rowData.forEach(function (cellData) {
                 var cell = document.createElement('td');
                 cell.appendChild(document.createTextNode(cellData));
                 row.appendChild(cell);
             });
-            
+
             tableBody.appendChild(row);
             count++;
-        })
+        });
     }
 </script>
     
