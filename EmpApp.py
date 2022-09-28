@@ -77,13 +77,13 @@ def view():
 
 @app.route("/search2", methods=['POST'])
 def search2():
-    emp_id = request.form['emp2_id']
+    id = request.form['emp2_id']
     overtime = request.form['ot']
     penalty = request.form['penalty']
     epf = request.form['epf']
     cursor = db_conn.cursor()
 
-    selectSql = "Select salary From employee Where emp_id = %s"
+    selectSql = "Select salary From employee Where id = %s"
     id = (emp_id)
     cursor.execute(selectSql, id)
     result1 = cursor.fetchone()
@@ -95,12 +95,12 @@ def search2():
     total = int(result1[0]) + (int(overtime) * 10) - int(penalty)
     final = ((100 - float(epf)) * float(total)) / 100
 
-    updateSql = "Update employee set salary = %s Where emp_id = %s"
+    updateSql = "Update employee set salary = %s Where id = %s"
     money = (final)
     id = (emp_id)
     cursor.execute(updateSql, (money, id))
 
-    selectSql2 = "Select salary From employee Where emp_id = %s"
+    selectSql2 = "Select salary From employee Where id = %s"
     id = (emp_id)
     cursor.execute(selectSql2, id)
     finalSalary = cursor.fetchone()
@@ -112,7 +112,7 @@ def search2():
 
 @app.route("/search", methods=['POST'])
 def search():
-    emp_id = request.form['emp1_id']
+    id = request.form['emp1_id']
 
     cursor = db_conn.cursor()
     selectSql = "Select salary From employee Where emp_id = %s"
