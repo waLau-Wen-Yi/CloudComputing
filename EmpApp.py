@@ -61,8 +61,8 @@ def view():
     for col in range(len(result1)):
         arr.append([])
         arr[col].append(col + 1)
-        arr[col].append(result[col][0] + "" + result[col][1])
-        arr[col].append(result[col][2])
+        arr[col].append(result1[col][0] + "" + result1[col][1])
+        arr[col].append(result1[col][2])
 
     string4 = "Select Sum(salary) from employee"
     cursor.execute(string4)
