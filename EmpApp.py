@@ -61,7 +61,7 @@ def view():
     arr = []
     for col in range(len(result1)):
         arr.append([])
-        arr[col].append(col + 1)
+        #arr[col].append(col + 1)
         arr[col].append(result1[col][0] + "" + result1[col][1])
         arr[col].append(result1[col][2])
 
