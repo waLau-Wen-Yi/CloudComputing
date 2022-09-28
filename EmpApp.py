@@ -867,11 +867,12 @@ def ViewAttdLog():
             values.append(outtime)
             
     cursor.execute(getInTime_sql, tuple(values))
+    print(getInTime_sql)
     result = cursor.fetchall()
     db_conn.commit()
     cursor.close()
 
-    return render_template('ViewAttendanceLog.html', result=result)
+    return render_template('ViewAttendanceLog.html', result=result, sql=getInTime_sql)
 
 # @@@@@@@@@@Payroll
 

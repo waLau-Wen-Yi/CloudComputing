@@ -23,7 +23,7 @@
     </style>
 
 </head>
-    <body style="width:100%;margin:0 auto;margin-top:150px;" onload="retrieveData({{result}})">
+    <body style="width:100%;margin:0 auto;margin-top:150px;" onload="retrieveData()">
         <h1 style="text-align:center">
             <font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span
                         style="font-size:26px;"><strong><span style="font-family: avenir;">Attendance
@@ -167,8 +167,9 @@
         }
     });
 
-    function retrieveData(table_result) {
-        alert(table_result)
+    function retrieveData() {
+        var table_result = '{{result}}'
+        alert("prove:", table_result[0][0], " some:", '{{sql}}')
         var elem = document.getElementsByClassName("rData")
         var size = elem.length()
 
