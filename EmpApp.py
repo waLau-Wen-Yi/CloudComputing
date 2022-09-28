@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, render_template, request
 from pymysql import connections
 import os
@@ -155,6 +156,10 @@ def about():
     return render_template('www.intellipaat.com')
 
 # ------------------------------------------wen yi------------------------------------------------
+#@@@@@@@@@@About Us Page
+@app.route('/abtus', methods=['GET', 'POST'])
+def AbtUs():
+    return render_template('/AboutUs.html')
 
 #@@@@@@@@@@Employee Management
 @app.route("/empmng", methods=['GET', 'POST'])
