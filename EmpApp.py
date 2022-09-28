@@ -870,7 +870,7 @@ def ViewAttdLog():
         db_conn.commit()
         cursor.close()
 
-        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist, result=result)
+        return render_template('TakeAttendance.html', result=result)
 
 # @@@@@@@@@@Payroll
 
