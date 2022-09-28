@@ -54,11 +54,11 @@ def update():
 @app.route("/view", methods=['Get','POST'])
 def view():
     cursor = db_conn.cursor()
-    string = "Select first_name from employee"
+    string = "Select fname from employee"
     cursor.execute(string)
     result1 = cursor.fetchall()
 
-    string2 = "Select last_name from employee"
+    string2 = "Select lname from employee"
     cursor.execute(string2)
     result2 = cursor.fetchall()
 
