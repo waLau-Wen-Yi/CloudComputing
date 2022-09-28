@@ -23,8 +23,6 @@
     </style>
 
 </head>
-<form action="/viewattdlog" method="POST">
-
     <body style="width:100%;margin:0 auto;margin-top:150px;" onload="retrieveData({{result}})">
         <h1 style="text-align:center">
             <font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span
@@ -36,6 +34,7 @@
         <option value="datetime">DateTime</option>
         <option value="status">Status</option>
     </select> -->
+    <form action="/viewattdlog" method="GET">
         <div style="width:inherit;text-align:center;">
             <div id="panelDateTime" style="margin:0 auto;margin-bottom:8px;word-break: keep-all;">
                 <label for="emp_id">Emp_Id:</label>
@@ -60,7 +59,6 @@
                 <button formaction="/viewattdlog" method="GET" type="submit" text="Check Out"
                     style="background: grey; padding: 6px 0px; border-radius:3px; height:10 px; width: 100px; color:white; font:oblique;text-align: center;vertical-align: middle;margin-top:8px;">Filter</button>
             </div>
-
 
             <center style="width:100%;">
                 <table border="1" cellpadding="1" cellspacing="1" style="width: 50%;padding:5px;">
