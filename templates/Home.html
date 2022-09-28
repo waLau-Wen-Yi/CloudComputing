@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>HR Management System</title>
+    <title>HR Management System</title>
     <style>
         body {
             background-image: url('https://64.media.tumblr.com/bd6c786943b1da9de06c559a6b997fbe/tumblr_nz14o7t0Z61skcd7fo2_r2_500.gifv');
@@ -22,43 +23,61 @@
         #main-menu {
             background: #f8a0a0;
         }
-        
-        .text{
+
+        .text {
             font-size: x-large;
+        }
+
+        #about-us {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        #about-us.button {
+            width: 100%;
+            border: 3px solid #73AD21;
         }
     </style>
 </head>
+
 <body style="margin-top:150px;">
-   
+
     <h1 style="background-color: black;text-align:center;">
         <font style="
     font-family: monospace;
-"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>HR Management System</span></strong></span></span></font>
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>HR Management
+                            System</span></strong></span></span></font>
     </h1>
     <center style="width:50%;margin:0 auto">
         <div style="margin-top:50px;">
-            <form action="/empmng" method="post" >
+            <form action="/empmng" method="post">
                 <button class="button-style text">Employee Management</button>
             </form>
         </div>
         <div style="margin-top:50px;">
-            <form action="/attd" method="post" >
+            <form action="/attd" method="post">
                 <button class="button-style text">Attendance</button>
             </form>
-        </div>    
+        </div>
         <div style="margin-top:50px;">
-            <form action="/salary" method="post" >
+            <form action="/salary" method="post">
                 <button class="button-style text">Payroll</button>
             </form>
         </div>
         <div style="margin-top:50px;">
-            <form action="/prftrk" method="post" >
+            <form action="/prftrk" method="post">
                 <button class="button-style text">Performance Tracker</button>
             </form>
         </div>
     </center>
-    
+
 </body>
 
-</html>
+<div id="about-us">
+    <form action="/prftrk" method="post">
+        <button>Performance Tracker</button>
+    </form>
+</div>
 
+</html>
