@@ -854,7 +854,7 @@ def ViewAttdLog():
                 flagWhere += 1
             else:
                 getInTime_sql = getInTime_sql.rstrip("OR ")
-                getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
+                getInTime_sql += "AND (out_time >= %s AND out_time <= %s) "
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
             values.append(outtime)
 
@@ -863,11 +863,10 @@ def ViewAttdLog():
                 getInTime_sql += "WHERE "
                 flagWhere += 1
             outtime = datetime.datetime.strptime(outtime, "%I:%M:%S %p")
-            getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+            getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) "
             values.append(outtime)
             
     cursor.execute(getInTime_sql, tuple(values))
-    print(getInTime_sql)
     result = cursor.fetchall()
     db_conn.commit()
     cursor.close()
