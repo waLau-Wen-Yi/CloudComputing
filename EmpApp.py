@@ -97,7 +97,7 @@ def search2():
 
     updateSql = "Update employee set salary = %s Where id = %s"
     money = (final)
-    id = (emp_id)
+    id = (id)
     cursor.execute(updateSql, (money, id))
 
     selectSql2 = "Select salary From employee Where id = %s"
