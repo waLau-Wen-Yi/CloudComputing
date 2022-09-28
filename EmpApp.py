@@ -705,7 +705,7 @@ def applyLeave():
     isExist = 21
 
     if request.method == "POST":
-        emp_id = request.args['emp_id']
+        emp_id = request.values['emp_id']
         emp_image_file = request.files['leave_file']
 
         if emp_image_file.filename == "":
