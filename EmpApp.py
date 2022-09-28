@@ -703,6 +703,11 @@ def addCheckOut():
 def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
+    insert_sql = "INSERT INTO (in_time, out_time, date, attd_status, leaveurl, emp_id) VALUES(%s, %s, %s, %s, %s, %s)"
+    in_time = ""
+    out_time = ""
+    dates = ""
+    emp_id = ""
 
     if request.method == "POST":
         emp_id = request.values['emp_id']
@@ -712,7 +717,7 @@ def applyLeave():
             return "Please select a file"
 
         # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + str(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + date.today()
         s3 = boto3.resource('s3')
 
         try:
@@ -732,8 +737,10 @@ def applyLeave():
                         custombucket,
                         emp_image_file_name_in_s3)
 
+            in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+            dates = date.today().strftime("%Y-%m-%d")
             cursor.execute(
-                        "UPDATE attendance SET leaveurl = (%s) WHERE id = (%s)", object_url, emp_id)
+                        insert_sql, (in_time, "", dates, "Leave", emp_id))
                 
             db_conn.commit()
 
