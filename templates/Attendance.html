@@ -19,15 +19,19 @@
 
         .button-style {
             background: #e1e1e1;
-            height: 45px;
-            width: 200px;
+            height: 50px;
+            width: 400px;
             color: black;
             font-weight: 600;
             font-family: monospace;
         }
 
-        #main-menu{
+        #main-menu {
             background: #f8a0a0;
+        }
+        
+        .text{
+            font-size: x-large;
         }
     </style>
 </head>
@@ -35,28 +39,28 @@
     <h1 style="background-color: black;text-align:center;">
         <font style="
     font-family: monospace;
-"><span style="color: #ffffff;"><span><strong><span>Attendance Management</span></strong></span></span></font>
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Attendance Management</span></strong></span></span></font>
     </h1>
     <center style="width:50%;margin:0 auto">
         <div style="margin-top:50px;">
             <form action="/takeattd" method="post" >
-                <button class="button-style">Take Attendance</button>
+                <button class="button-style text">Take Attendance</button>
             </form>
         </div>
         <div style="margin-top:50px;">
             <form action="/viewattd" method="post" >
-                <button class="button-style">View Attendance</button>
+                <button class="button-style text">View Attendance</button>
             </form>
         </div>
         <div style="margin-top:50px;">
             <form action="/updateattd" method="post" >
-                <button class="button-style">Apply leave</button>
+                <button class="button-style text">Apply leave</button>
             </form>
         </div>     
         
         <div style="margin-top:50px;">
             <form action="/" method="post">
-            <button class="button-style" id="main-menu">MAIN MENU</button>
+            <button class="button-style text" id="main-menu">MAIN MENU</button>
             </form>
         </div>
     </center>
