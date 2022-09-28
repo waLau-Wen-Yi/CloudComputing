@@ -34,7 +34,7 @@
         <option value="datetime">DateTime</option>
         <option value="status">Status</option>
     </select> -->
-    <form action="/viewattdlog" method="GET">
+    <form action="/viewattdlog" method="POST" autocomplete="on" enctype="multipart/form-data">
         <div style="width:inherit;text-align:center;">
             <div id="panelDateTime" style="margin:0 auto;margin-bottom:8px;word-break: keep-all;">
                 <label for="emp_id">Emp_Id:</label>
@@ -169,7 +169,8 @@
 
     function retrieveData() {
         var table_result = '{{result}}'
-        alert("prove:", table_result[0][0], " some:", '{{sql}}')
+        var sql = '{{sql}}'
+        alert(sql)
         var elem = document.getElementsByClassName("rData")
         var size = elem.length()
 

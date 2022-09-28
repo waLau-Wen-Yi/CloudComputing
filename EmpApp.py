@@ -871,7 +871,7 @@ def ViewAttdLog():
     db_conn.commit()
     cursor.close()
 
-    return render_template('ViewAttendanceLog.html', result=result, sql=getInTime_sql)
+    return render_template('ViewAttendanceLog.html', result=result,emp_id=emp_id,fstart=fstart,fend=fend,intime=intime,outtime=outtime, sql=getInTime_sql)
 
 # @@@@@@@@@@Payroll
 
