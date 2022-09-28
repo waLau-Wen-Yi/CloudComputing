@@ -699,48 +699,50 @@ def addCheckOut():
         return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist)
 
 
-@app.route("/applyleave", methods=['POST'])
+@app.route("/applyleave", methods=['GET','POST'])
 def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
-    emp_id = request.args['emp_id']
-    emp_image_file = request.files['leave_file']
 
-    if emp_image_file.filename == "":
-        return "Please select a file"
+    if flask.request.method == "GET":
+        emp_id = request.args['emp_id']
+        emp_image_file = request.files['leave_file']
 
-    # Uplaod image file in S3 #
-    emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + str(datetime.now())
-    s3 = boto3.resource('s3')
+        if emp_image_file.filename == "":
+            return "Please select a file"
 
-    try:
-        print("Data inserted in MySQL RDS... uploading image to S3...")
-        s3.Bucket(custombucket).put_object(
-            Key=emp_image_file_name_in_s3, Body=emp_image_file)
-        bucket_location = boto3.client(
-            's3').get_bucket_location(Bucket=custombucket)
-        s3_location = (bucket_location['LocationConstraint'])
+        # Uplaod image file in S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_leave_evidence_" + str(datetime.now())
+        s3 = boto3.resource('s3')
 
-        if s3_location is None:
-            s3_location = ''
-        else:
-            s3_location = '-' + s3_location
+        try:
+            print("Data inserted in MySQL RDS... uploading image to S3...")
+            s3.Bucket(custombucket).put_object(
+                Key=emp_image_file_name_in_s3, Body=emp_image_file)
+            bucket_location = boto3.client(
+                's3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
 
-        object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    emp_image_file_name_in_s3)
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
 
-        cursor.execute(
-                    "UPDATE attendance SET leaveurl = (%s) WHERE id = (%s)", object_url, emp_id)
-            
-        db_conn.commit()
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        emp_image_file_name_in_s3)
 
-    except Exception as e:
-        return str(e)
+            cursor.execute(
+                        "UPDATE attendance SET leaveurl = (%s) WHERE id = (%s)", object_url, emp_id)
+                
+            db_conn.commit()
 
-    finally:
-        cursor.close()
+        except Exception as e:
+            return str(e)
+
+        finally:
+            cursor.close()
 
     return render_template('UpdateAttdStatus.html',isExist=isExist) 
 
