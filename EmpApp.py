@@ -58,7 +58,7 @@ def view():
     result1 = cursor.fetchall()
     
     arr = []
-    for col in range(len(result)):
+    for col in range(len(result1)):
         arr.append([])
         arr[col].append(col + 1)
         arr[col].append(result[col][0] + "" + result[col][1])
