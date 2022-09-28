@@ -793,7 +793,7 @@ def ViewAttdLog():
     values = []
 
     #insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
-    getInTime_sql = "SELECT image_url, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id "  
+    getInTime_sql = "SELECT imgurl, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id "  
 
     if (request.method == 'GET'):
         # request = page, args[''] = query string
@@ -865,12 +865,12 @@ def ViewAttdLog():
             getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
             values.append(outtime)
             
-        cursor.execute(getInTime_sql, tuple(values))
-        result = cursor.fetchall()
-        db_conn.commit()
-        cursor.close()
+    cursor.execute(getInTime_sql, tuple(values))
+    result = cursor.fetchall()
+    db_conn.commit()
+    cursor.close()
 
-        return render_template('TakeAttendance.html', result=result)
+    return render_template('TakeAttendance.html', result=result)
 
 # @@@@@@@@@@Payroll
 
