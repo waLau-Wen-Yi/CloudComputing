@@ -54,16 +54,17 @@ def update():
 @app.route("/view", methods=['Get','POST'])
 def view():
     cursor = db_conn.cursor()
-    string = "Select fname, lname, salary from employee"
+    string = "Select first_name from employee"
     cursor.execute(string)
     result1 = cursor.fetchall()
-    
-    arr = []
-    for col in range(len(result1)):
-        arr.append([])
-        arr[col].append(col + 1)
-        arr[col].append(result1[col][0] + "" + result1[col][1])
-        arr[col].append(result1[col][2])
+
+    string2 = "Select last_name from employee"
+    cursor.execute(string2)
+    result2 = cursor.fetchall()
+
+    string3 = "Select salary from employee"
+    cursor.execute(string3)
+    result3 = cursor.fetchall()
 
     string4 = "Select Sum(salary) from employee"
     cursor.execute(string4)
@@ -72,7 +73,7 @@ def view():
     db_conn.commit()
     cursor.close()
 
-    return render_template('view.html', result4=result4[0], content = arr)
+    return render_template('view.html',result1 = result1, result2 = result2, result3 = result3, result4=result4[0])
 
 
 @app.route("/search2", methods=['POST'])
