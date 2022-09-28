@@ -495,7 +495,7 @@ def PrfEdtAct():
 # @@@@@@@@@@Attendance
 
 
-@app.route("/attd", methods=['POST'])
+@app.route("/attd", methods=['GET', 'POST'])
 def attd():
     return render_template('Attendance.html')
 

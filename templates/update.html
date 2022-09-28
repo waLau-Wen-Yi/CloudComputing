@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        body {
+            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+            margin-top: 0px;
+            background-position: center;
+            background-size: cover;
+        }
+    
+        .button-style {
+            background: #e1e1e1;
+            height: 45px;
+            width: 250px;
+            color: black;
+            font-weight: 600;
+            font-family: monospace;
+        }
+    
+        #main-menu {
+            background: #f8a0a0;
+        }
+    
+        .text {
+            font-size: x-large;
+        }
+    </style>
 <head>
 	<title>Add Employee Information</title>
 </head>
 <center>
-	<font color="black" size="4" style="font-family: avenir">
+	
+	<h1 style="background-color: black;text-align:center;">
+        <font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Update Employee Salary</span></strong></span></span></font>
+    </h1>
 
-		<h1 style="color: DodgerBlue">Update Employee Salary</h1>
+	<body bgcolor="lightgrey">
 
-		<body bgcolor="lightgrey">
-
-			<form action="/search2" autocomplete="on" method = "POST" enctype="multipart/form-data">
-
-
-		  		Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp2_id" autofocus size="40"><br><br>
-
-		  		OverTime Hour:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="ot" ><br><br>
-
-		  		Penalty:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="penalty"><br><br>
-
-		  		EPF percentage:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="epf"><br><br>
-
-                  <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Update</button><br><br>
-
-                Initial Salary:<br> RM {{ result }} <br><br>
-                New Salary:<br> RM {{ finalSalary }} <br><br>
-                		
-
-			</form>
-            <form action="/back" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                <button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">Back</button><br><br>
-
-            </form>
+		<form action="/search2" autocomplete="on" method = "POST" enctype="multipart/form-data">
 
 
-		</body>
+			  Employee ID:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp2_id" autofocus size="40"><br><br>
 
-	</font>
+			  OverTime Hour:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="ot" ><br><br>
+
+			  Penalty:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="penalty"><br><br>
+
+			  EPF percentage:<br> <input style="height:25px;font-size:14pt;color:grey;" type="number" name="epf"><br><br>
+
+			  <button type="submit" class="button-style text">Update</button><br><br>
+
+			Initial Salary:<br> RM {{ result }} <br><br>
+			New Salary:<br> RM {{ finalSalary }} <br><br>
+					
+
+		</form>
+		<form action="/back" autocomplete="on" method = "POST" enctype="multipart/form-data">
+			<button type="submit" class="button-style text" id="main-menu">Back</button><br><br>
+
+		</form>
+
+
+	</body>
+
+
 </center>
 </html>
