@@ -1,0 +1,8 @@
+pic 
+name: Sham Tze Wah
+position: Full Stack Developer
+description: Hello guys, I am Sham Tze Wah who has worked in this software house for more than 10 years.
+I have been played an important role in this company, which is Full stack developer than fully implemented the software development lifecycle.
+By doing a lot of project, I have gained a bunch of skillset, knowledge and experience that can prepared me to be a software technology leader in IT field.
+From the past, I have dealed with AI-related project, blockchain-related project. The biggest project that I have handled is the combination of AI, deep learning, IOT with the decentralised technology
+where the goal of this project is to produce a perfect robot to perform daily task to help user.

@@ -757,6 +757,94 @@ def applyLeave():
 
     return render_template('UpdateAttdStatus.html', isExist=isExist) 
 
+@app.route("/viewattdlog", methods=['GET'])
+def ViewAttdLog():
+    flagDate = 0
+    flagTime = 0
+    cursor = db_conn.cursor()
+    name = ""
+    isExist = 0
+    msg = ""
+
+    emp_id = ""
+    fstart = ""
+    fend = ""
+    intime = ""
+    outtime = ""
+
+    #insert_sql = "UPDATE attendance SET out_time = %s WHERE emp_id = %s AND in_time = %s"
+    getInTime_sql = "SELECT image_url, id, fname, lname, position, attendance.date, in_time, out_time, attd_status FROM employee LEFT JOIN attendance ON employee.id = attendance.emp_id WHERE "  
+
+    if (request.method == 'GET'):
+        # request = page, args[''] = query string
+        emp_id = request.args['emp_id']
+        fstart = request.args['fstart']
+        fend = request.args['fend']
+        intime = request.args['intime']
+        outtime = request.args['outtime']
+
+        if(emp_id != ""):
+            getInTime_sql += "employee.emp_id = %s OR "
+
+        if(fstart != ""): #have start
+            getInTime_sql += "(STR_TO_DATE(attendance.date, '%Y-%m-%d') >= %s OR " 
+            flagDate+=1
+
+        if(flagDate > 0 and fend != ""): #have start have end
+            getInTime_sql = getInTime_sql.rstrip("OR ")
+            getInTime_sql += "AND STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+
+        else: #no start have end
+            getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+
+        if(intime != ""): #have start
+            getInTime_sql += "(in_time >= %s AND in_time <= %s) OR "
+            flagTime +=1
+
+        if(flagTime >0 and outtime != ""): #have start have end
+            getInTime_sql = getInTime_sql.rstrip("OR ")
+            getInTime_sql += "AND (out_time >= %s AND out_time <= %s)"
+
+        else: #no start have end
+            getInTime_sql += "STR_TO_DATE(attendance.date, '%Y-%m-%d') <= %s) OR "
+
+        # check whether the emp id exists
+        if (name != ""):
+            # check whether the last time it is check in or checkout
+            if (in_time != None and (out_time == "" or out_time == None)):
+                cursor.execute(getInTime_sql, (emp_id, emp_id))
+                in_time = cursor.fetchone()[0]
+                db_conn.commit()
+                out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                print("out:", out_time)
+                cursor.execute(insert_sql, (out_time, emp_id, in_time))
+                db_conn.commit()
+                isExist = 14
+                # insert data
+            elif (out_time != None):
+                if (out_time < in_time):  # if check-in then can check out
+                    # insert data
+                    cursor.execute(getInTime_sql, (emp_id, emp_id))
+                    in_time = cursor.fetchone()[0]
+                    db_conn.commit()
+                    out_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+                    cursor.execute(insert_sql, (out_time, emp_id, in_time))
+                    db_conn.commit()
+                    isExist = 14
+
+                elif (out_time > in_time):  # else tell them that they have checked out
+                    # display message box
+                    isExist = 11
+                else:
+                    # display message box
+                    isExist = 2
+
+        else:
+            # display message box
+            isExist = 3
+
+        return render_template('TakeAttendance.html', emp_id=emp_id, name=name, isExist=isExist, result=result)
+
 # @@@@@@@@@@Payroll
 
 

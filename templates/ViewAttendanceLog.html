@@ -19,8 +19,8 @@
         }
     </style>
 </head>
-<form action="" method="GET"></form>
-<body style="width:50%;margin:0 auto;margin-top:150px;">
+<form action="/" method="GET"></form>
+<body style="width:50%;margin:0 auto;margin-top:150px;" onload="retrieveData({{result}})">
     <h1 style="text-align:center"><font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span style="font-family: avenir;">Attendance Log</span></strong></span></span></font></h1>
     <!-- <div id="filter-btn" style="background: grey; padding: 10px 0px; border-radius:3px; height: 20px; width: 100px; color:white; font:oblique;text-align: center;vertical-align: bottom;">Filter</div>
     <select name="filter" id="filter" style="text-align:left;display:none;">
@@ -53,6 +53,7 @@
                     <td>Employee Id</td>
                     <td>Employee Name</td>
                     <td>Position</td>
+                    <td>Date</td>
                     <td>Check-in Time</td>
                     <td>Check-Out Time</td>
                     <td>Attendance Status</td>
@@ -62,24 +63,29 @@
             <tbody>
                 <tr>
                     <td style="width: 45%;">
-                        <p style="text-align: center;">{{ image_url }}</p>
+                        <p style="text-align: center;"><strong class="rdata">{{ imgurl }}</strong></p>
                     </td>
                     <td style="width: 45%;">
-                        <p style="text-align: center;"><span style="color:#3498db;"><strong>{{emp_id}}</strong></span><br />
+                        <p style="text-align: center;"><span style="color:#3498db;"><strong class="rdata">{{id}}</strong></span><br />
                     </td>
                     <td style="width: 45%;">
-                        <p style="text-align: center;"><span style="color:#3498db;"><strong>{{ fname }}&nbsp;{{ lname }}</strong></span><br />
+                        <p style="text-align: center;"><span style="color:#3498db;"><strong class="rdata">{{ fname }}&nbsp;{{ lname }}</strong></span><br />
                     </td>
                     <td style="width: 45%;">
                         <p style="text-align: center;">
-                            <span style="color:#3498db;">{{ position }}</span>
+                            <span style="color:#3498db;"><strong class="rdata">{{ position }}</strong></span>
+                        </p>
+                    </td>
+                    <td style="width: 45%;">
+                        <p style="text-align: center;">
+                            <span style="color:#3498db;"><strong class="rdata">{{ date }}</strong></span>
                         </p>
                     </td>
                     <td style="width: 298px; text-align: center;">
-                        <p>{{check_in_time}}</p>
+                        <p><strong class="rdata">{{in_time}}</strong></p>
                     </td>
                     <td style="width: 298px; text-align: center; vertical-align: middle;">
-                        <p>{{check_out_time}}<br /></p>
+                        <p><strong class="rdata">{{out_time}}</strong><br /></p>
                     </td>
                     <td style="width: 298px; text-align:left;">
                         <input type="radio" id="Present" name="status" value="Present">
@@ -109,7 +115,9 @@
                     
                 </tr>
             </tbody>
-        </table>        
+        </table>  
+        <button formaction="/attd" type="submit" text="Check Out" 
+        style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">Go Back</button>    
     </center>
     
 </body>
@@ -139,10 +147,20 @@
         }
     });
 
+    function retrieveData(table_result){
+        var elem = document.getElementsByClassName("rData")
+        var size = elem.length()
+
+        for(i=0; i<table_result.size(); i++){
+            
+        }
+        
+    }
+
     //@@@ Call JS Function
     document.getElementById("fstart").value = selectDate();
     document.getElementById("fend").value = selectDate();
-    
+    retrieveData()
 </script>
 
 </html>
