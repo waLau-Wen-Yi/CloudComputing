@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html>
-    <style>
-        body {
-            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
-            margin-top: 0px;
-            background-position: center;
-            background-size: cover;
-        }
-    
-        .button-style {
-            background: #e1e1e1;
-            height: 45px;
-            width: 250px;
-            color: black;
-            font-weight: 600;
-            font-family: monospace;
-        }
-    
-        #main-menu {
-            background: #f8a0a0;
-        }
-    
-        .text {
-            font-size: x-large;
-        }
-    </style>
+<style>
+    body {
+        background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+        margin-top: 0px;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .button-style {
+        background: #e1e1e1;
+        height: 45px;
+        width: 250px;
+        color: black;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    #main-menu {
+        background: #f8a0a0;
+    }
+
+    .text {
+        font-size: x-large;
+    }
+</style>
+
 <head>
-	<title>Add Employee Information</title>
+    <title>Add Employee Information</title>
 </head>
 <center>
     <h1 style="background-color: black;text-align:center;">
         <font style="
 font-family: monospace;
-"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Employee Summary</span></strong></span></span></font>
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Employee
+                            Summary</span></strong></span></span></font>
     </h1>
 
-		<body bgcolor="lightgrey">
-            <div>
+    <body>
+        <div>
 
-                <table width="30%" style="background-color: grey;">
-                    <tr>
-                        <td width="10%">First Name</td>
-                        <td width="20%">Last Name</td>
-                        <td width="10%">Salary</td>
-                    </tr>
-                    <tr>
-                        <td width="10%">{{ result1 }} </td>
-                        <td width="20%">{{ result2 }} </td>
-                        <td width="10%">{{ result3 }} </td>
-                    </tr>
+            <table width="30%" style="background-color: lightgrey;">
+                <tr>
+                    <td width="10%">First Name</td>
+                    <td width="20%">Last Name</td>
+                    <td width="10%">Salary</td>
+                </tr>
+                <tr>
+                    <td width="10%">{{ result1 }} </td>
+                    <td width="20%">{{ result2 }} </td>
+                    <td width="10%">{{ result3 }} </td>
+                </tr>
 
-                </table>
-            </div>
-            <br><br><br><br><br><br><br><br><br><br>
-            Total Salary:<br> RM {{ result4 }} <br><br>
+            </table>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br>
+        Total Salary:<br> RM {{ result4 }} <br><br>
 
-            <form action="/back" autocomplete="on" method = "POST" enctype="multipart/form-data">
-                <button type="submit" class="button-style text" id="main-menu">Back</button><br><br>
+        <form action="/back" autocomplete="on" method="POST" enctype="multipart/form-data">
+            <button type="submit" class="button-style text" id="main-menu">Back</button><br><br>
 
-            </form>
+        </form>
 
-		</body>
+    </body>
 
 </center>
+
 </html>
