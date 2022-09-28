@@ -704,7 +704,7 @@ def applyLeave():
     cursor = db_conn.cursor()
     isExist = 21
 
-    if request.method == "GET":
+    if request.method == "POST":
         emp_id = request.args['emp_id']
         emp_image_file = request.files['leave_file']
 
