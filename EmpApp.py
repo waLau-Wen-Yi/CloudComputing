@@ -736,11 +736,16 @@ def applyLeave():
                         s3_location,
                         custombucket,
                         emp_image_file_name_in_s3)
+            print(object_url)
 
             in_time = datetime.datetime.now().strftime("%I:%M:%S %p")
+            print("in:",in_time)
+
             dates = date.today().strftime("%Y-%m-%d")
+            print("date:",dates)
+
             cursor.execute(
-                        insert_sql, (in_time, "", dates, "Leave", emp_id))
+                        insert_sql, (in_time, "", dates, "Leave", object_url, emp_id))
                 
             db_conn.commit()
 
