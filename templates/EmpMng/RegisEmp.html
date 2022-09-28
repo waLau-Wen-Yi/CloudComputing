@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html>
-<style>
+	<style>
+		body {
+			background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
+			margin-top: 0px;
+			background-position: center;
+			background-size: cover;
+		}
 	
-	body {
-            background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
-            margin-top: 0px;
-            background-position: center;
-            background-size: cover;
-        }
+		.button-style {
+			background: #e1e1e1;
+			height: 45px;
+			width: 250px;
+			color: black;
+			font-weight: 600;
+			font-family: monospace;
+		}
+	
+		#main-menu {
+			background: #f8a0a0;
+		}
+	
+		.text {
+			font-size: x-large;
+		}
 	</style>
 <head>
 	<title>Register New Employee</title>
 </head>
 <body>
 <center>
-	<font color="black" size="5" style="font-family: avenir">
-		<h1 style="text-align:center"><span style="color:#3498db;"><span style="font-size:26px;"><strong><span
-							style="font-family: avenir;">Employee
-							Management: Register New Employee</span></strong></span></span>
-		</h1>
+	<h1 style="background-color: black;text-align:center;">
+		<font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Employee
+	Management: Register New Employee</span></strong></span></span></font>
+	</h1>
 
 		<form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
 			<table border="1" cellpadding="1" cellspacing="1" style="width:100%;">
@@ -141,19 +158,17 @@
 
 			<p>
 
-				<button formaction="/" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+				<button formaction="/" class="button-style text" id="main-menu" type="submit">
 					MAIN MENU
 				</button>
 				<button formaction="/empmng"
-					style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+				class="button-style text" type="submit">
 					BACK</button>
 				<button
-					style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+				class="button-style text" type="submit">
 					REGISTER</button>
 		</form>
 		</p>
-
-	</font>
 </center></body>
 
 </html>
