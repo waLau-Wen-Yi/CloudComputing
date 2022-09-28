@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html>
     <style>
-
-body {
+        body {
             background-image: url('https://flevix.com/wp-content/uploads/2019/12/Live-Wave-Background.svg');
             margin-top: 0px;
             background-position: center;
             background-size: cover;
         }
-        </style>
+    
+        .button-style {
+            background: #e1e1e1;
+            height: 45px;
+            width: 250px;
+            color: black;
+            font-weight: 600;
+            font-family: monospace;
+        }
+    
+        #main-menu {
+            background: #f8a0a0;
+        }
+    
+        .text {
+            font-size: x-large;
+        }
+    </style>
 <title>Remove Employee</title>
 <body>
     
 <center>
-    <h1 style="text-align:center">
-        <font color="black" size="5" style="font-family: avenir">
-            <font color="black" size="5" style="font-family: avenir">
-                <font color="black" size="5" style="font-family: avenir">
-                    <font color="black" size="5" style="font-family: avenir"><span style="color:#3498db;"><span
-                                style="font-size:26px;"><strong><span style="font-family: avenir;">Employee Management:
-                                        Remove Employee</span></strong></span></span></font>
-                </font>
-            </font>
-        </font>
+    <h1 style="background-color: black;text-align:center;">
+        <font style="
+font-family: monospace;
+"><span style="color: #ffffff; font-size: xxx-large;"><span><strong><span>Employee Management:
+    Remove Employee</span></strong></span></span></font>
     </h1>
 
     <hr />
     <form action="/edtempdtl" id="emp_id_form" method="get">
-        <p>Employee ID:
-            &nbsp;
-            <input autofocus="" name="emp_id" size="40" style="width:100px;height:30px;font-size:14pt;" type="text" />
-            <strong>
-                <button formaction="" style="background: grey; height: 40px; width: 100px; color:white; font:oblique;"
-                    type="submit">
-                    SEARCH
-                </button>
-            </strong>
-        </p>
+        <p class="text" style="font-family: monospace;">Employee ID: &nbsp; <input autofocus="" name="emp_id"
+            size="30" class="button-style text" style="background: white;" type="text" /> <strong><button
+                class="button-style text" type="submit">SEARCH</button> </strong></p>
     </form>
 
     <hr />
@@ -115,7 +119,7 @@ body {
         <p>
         <form action="/rmvempcmfrm" method="get">
             <input name="emp_id" size="40" style="width:100px;height:30px;font-size:14pt;" type="hidden" value="{{ id }}" placeholder="Enter the ID again for comfirmation"/>
-            <button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+            <button class="button-style text" style="background-color: red;" type="submit">
                 REMOVE
             </button>
         </form>
@@ -123,12 +127,12 @@ body {
 
         <p>
         <form action="/" method="post">
-            <button style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">MAIN
+            <button class="button-style text" id="main-menu" type="submit">MAIN
                 MENU
             </button>
             &nbsp;
             <button formaction="/empmng"
-                style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" type="submit">
+            class="button-style text" type="submit">
                 BACK
             </button>
             &nbsp;
