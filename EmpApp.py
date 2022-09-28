@@ -115,7 +115,7 @@ def search():
     id = request.form['emp1_id']
 
     cursor = db_conn.cursor()
-    selectSql = "Select salary From employee Where emp_id = %s"
+    selectSql = "Select salary From employee Where id = %s"
     id = (emp_id)
     cursor.execute(selectSql, id)
     result2 = cursor.fetchone()
