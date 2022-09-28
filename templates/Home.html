@@ -28,11 +28,14 @@
             font-size: x-large;
         }
 
-        .about-us {
+        #about-us {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 300px;
+        }
+
+        #about-us.button {
+            width: 100%;
             border: 3px solid #73AD21;
         }
     </style>
@@ -71,7 +74,7 @@
 
 </body>
 
-<div class="about-us">
+<div id="about-us">
     <form action="/prftrk" method="post">
         <button>Performance Tracker</button>
     </form>
